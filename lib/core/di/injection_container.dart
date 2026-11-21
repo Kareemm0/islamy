@@ -1,5 +1,11 @@
 import 'package:get_it/get_it.dart';
 
+import '../../features/azkar/data/datasources/azkar_remote_datasource.dart';
+import '../../features/azkar/data/datasources/azkar_remote_datasource_impl.dart';
+import '../../features/azkar/data/repositories/azkar_repository_impl.dart';
+import '../../features/azkar/domain/repositories/azkar_repository.dart';
+import '../../features/azkar/domain/usecases/get_azkar_items_usecase.dart';
+import '../../features/azkar/presentation/cubit/azkar_cubit.dart';
 import '../../features/hadith/data/datasources/hadith_local_datasource.dart';
 import '../../features/hadith/data/datasources/hadith_remote_datasource.dart';
 import '../../features/hadith/data/datasources/hadith_remote_datasource_impl.dart';
@@ -143,6 +149,34 @@ Future<void> initDependencies() async {
   if (!sl.isRegistered<HadithDetailsCubit>()) {
     sl.registerFactory<HadithDetailsCubit>(
       () => HadithDetailsCubit(sl<GetHadithCollectionPageUseCase>()),
+    );
+  }
+
+  // Azkar - Data source
+  if (!sl.isRegistered<AzkarRemoteDataSource>()) {
+    sl.registerLazySingleton<AzkarRemoteDataSource>(
+      () => AzkarRemoteDataSourceImpl(sl<ApiClient>()),
+    );
+  }
+
+  // Azkar - Repository
+  if (!sl.isRegistered<AzkarRepository>()) {
+    sl.registerLazySingleton<AzkarRepository>(
+      () => AzkarRepositoryImpl(sl<AzkarRemoteDataSource>()),
+    );
+  }
+
+  // Azkar - Use case
+  if (!sl.isRegistered<GetAzkarItemsUseCase>()) {
+    sl.registerLazySingleton<GetAzkarItemsUseCase>(
+      () => GetAzkarItemsUseCase(sl<AzkarRepository>()),
+    );
+  }
+
+  // Azkar - Cubit
+  if (!sl.isRegistered<AzkarCubit>()) {
+    sl.registerFactory<AzkarCubit>(
+      () => AzkarCubit(sl<GetAzkarItemsUseCase>()),
     );
   }
 }

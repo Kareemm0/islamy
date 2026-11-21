@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:islamy/core/di/injection_container.dart';
 import 'package:islamy/core/theme/app_theme.dart';
 
 import '../cubit/azkar_cubit.dart';
@@ -28,8 +29,8 @@ class AzkarPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => AzkarCubit(),
+    return BlocProvider<AzkarCubit>(
+      create: (_) => sl<AzkarCubit>()..loadAzkar(),
       child: ColoredBox(
         color: AppColors.background,
         child: BlocBuilder<AzkarCubit, AzkarState>(

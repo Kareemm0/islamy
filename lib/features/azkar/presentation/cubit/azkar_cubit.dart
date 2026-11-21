@@ -1,20 +1,36 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../data/repositories/azkar_repository_impl.dart';
 import '../../domain/entities/azkar_category.dart';
 import '../../domain/entities/azkar_item.dart';
-import '../../domain/repositories/azkar_repository.dart';
+import '../../domain/usecases/get_azkar_items_usecase.dart';
 import 'azkar_state.dart';
 
 class AzkarCubit extends Cubit<AzkarState> {
-  AzkarCubit({AzkarRepository? repository})
-    : super(
-        AzkarState(
-          items: List<AzkarItem>.unmodifiable(
-            (repository ?? const AzkarRepositoryImpl()).getAzkarItems(),
-          ),
+  AzkarCubit(this._getAzkarItems)
+      : super(const AzkarState(items: [], status: AzkarStatus.loading));
+
+  final GetAzkarItemsUseCase _getAzkarItems;
+
+  Future<void> loadAzkar() async {
+    emit(state.copyWith(status: AzkarStatus.loading, clearError: true));
+    final result = await _getAzkarItems();
+    if (isClosed) return;
+    result.fold(
+      (failure) => emit(
+        state.copyWith(
+          status: AzkarStatus.failure,
+          errorMessage: failure.message,
         ),
-      );
+      ),
+      (items) => emit(
+        state.copyWith(
+          items: List<AzkarItem>.unmodifiable(items),
+          status: AzkarStatus.success,
+          clearError: true,
+        ),
+      ),
+    );
+  }
 
   void selectCategory(AzkarCategory category) {
     if (category == state.category) return;

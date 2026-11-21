@@ -1,5 +1,8 @@
+import 'package:fpdart/fpdart.dart';
+
+import '../../../../core/errors/failure.dart';
 import '../entities/azkar_item.dart';
 
 abstract interface class AzkarRepository {
-  List<AzkarItem> getAzkarItems();
+  Future<Either<Failure, List<AzkarItem>>> getAzkarItems();
 }

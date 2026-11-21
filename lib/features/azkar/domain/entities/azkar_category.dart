@@ -1,33 +1,51 @@
 enum AzkarCategory {
   morning(
-    'Morning',
+    'أذكار الصبح',
     '(الصباح)',
-    'Morning Adhkar • أذكار الصباح',
+    'أذكار الصباح',
+    'Morning Adhkar • أذكار الصبح',
     'Begin your daylight with barakah, protection,\nand gratitude.',
   ),
   evening(
-    'Evening',
+    'أذكار المساء',
     '(المساء)',
+    'أذكار المساء',
     'Evening Adhkar • أذكار المساء',
     'Close your day with remembrance, peace,\nand gratitude.',
   ),
-  afterPrayer(
-    'After Prayer',
-    '(بعد الصلاة)',
-    'After Prayer • أذكار بعد الصلاة',
-    'Seal your prayer with glorification\nand praise.',
-  ),
   sleep(
-    'Sleep & Wake',
+    'أذكار النوم',
     '(النوم)',
-    'Sleep & Wake • أذكار النوم',
-    'Rest in the protection of Allah and\nawaken with thankfulness.',
+    'أذكار النوم',
+    'Sleep Adhkar • أذكار النوم',
+    'Rest in the protection of Allah and\npeaceful remembrance.',
+  ),
+  wakeUp(
+    'أذكار الاستيقاظ',
+    '(الاستيقاظ)',
+    'أذكار الاستيقاظ',
+    'Waking Up • أذكار الاستيقاظ',
+    'Awaken with thankfulness and praise\nto the Creator.',
+  ),
+  prophetsDua(
+    'دعاء الأنبياء',
+    '(الأنبياء)',
+    'أدعية الأنبياء',
+    'Prophets’ Duas • دعاء الأنبياء',
+    'Supplications of the Prophets from the\nNoble Quran.',
   );
 
-  const AzkarCategory(this.label, this.arabicLabel, this.title, this.subtitle);
+  const AzkarCategory(
+    this.label,
+    this.arabicLabel,
+    this.jsonKey,
+    this.title,
+    this.subtitle,
+  );
 
   final String label;
   final String arabicLabel;
+  final String jsonKey;
   final String title;
   final String subtitle;
 }

@@ -40,7 +40,7 @@ class AzkarStandardDhikrCard extends StatelessWidget {
         ],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           AzkarDhikrHeaderRow(
             number: number,
@@ -68,20 +68,25 @@ class AzkarStandardDhikrCard extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 15),
-          Text(
-            item.translation,
-            style: AppTheme.text(
-              size: 15,
-              color: AppColors.onSurface,
-              height: 24.38,
+          if (item.translation.isNotEmpty) ...[
+            const SizedBox(height: 12),
+            Text(
+              item.translation,
+              textDirection: TextDirection.rtl,
+              textAlign: TextAlign.right,
+              style: AppTheme.text(
+                size: 13.5,
+                weight: FontWeight.w500,
+                color: AppColors.onSurfaceVariant,
+                height: 22,
+              ),
             ),
-          ),
+          ],
           const SizedBox(height: 16),
-          if (isMulti && !item.isCompleted)
-            AzkarMultiRepFooter(item: item, onTapCount: onTapCount)
-          else
-            AzkarSingleRepFooter(item: item, onTapCount: onTapCount),
+          switch (isMulti && !item.isCompleted) {
+            true => AzkarMultiRepFooter(item: item, onTapCount: onTapCount),
+            false => AzkarSingleRepFooter(item: item, onTapCount: onTapCount),
+          },
         ],
       ),
     );

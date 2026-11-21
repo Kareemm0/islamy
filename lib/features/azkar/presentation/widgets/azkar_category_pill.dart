@@ -20,8 +20,9 @@ class AzkarCategoryPill extends StatelessWidget {
   static const _icons = {
     AzkarCategory.morning: (AzkarAssets.filterMorning, 16.5, 16.5),
     AzkarCategory.evening: (AzkarAssets.filterEvening, 15.0, 15.0),
-    AzkarCategory.afterPrayer: (AzkarAssets.filterAfterPrayer, 18.0, 15.0),
     AzkarCategory.sleep: (AzkarAssets.filterSleep, 16.5, 15.0),
+    AzkarCategory.wakeUp: (AzkarAssets.filterMorning, 16.5, 16.5),
+    AzkarCategory.prophetsDua: (AzkarAssets.filterAfterPrayer, 18.0, 15.0),
   };
 
   @override
@@ -56,27 +57,13 @@ class AzkarCategoryPill extends StatelessWidget {
             const SizedBox(width: 6),
             Text(
               category.label,
+              textDirection: TextDirection.rtl,
               style: AppTheme.text(
                 size: 13,
                 weight: selected ? FontWeight.w600 : FontWeight.w500,
                 color: selected ? Colors.white : AppColors.onSurfaceVariant,
                 height: 18,
                 letterSpacing: 0.26,
-              ),
-            ),
-            const SizedBox(width: 6),
-            Opacity(
-              opacity: selected ? 0.8 : 1,
-              child: Text(
-                category.arabicLabel,
-                textDirection: TextDirection.rtl,
-                style: AppTheme.text(
-                  size: 11,
-                  weight: FontWeight.w600,
-                  color: selected ? Colors.white : AzkarPalette.outlineVariant,
-                  height: 16,
-                  letterSpacing: 0.44,
-                ),
               ),
             ),
           ],

@@ -13,4 +13,7 @@ abstract final class ApiEndpoints {
     required int page,
     int limit = 20,
   }) => '$hadithBaseUrl/$slug?page=$page&limit=$limit';
+
+  static const azkarUrl =
+      'https://raw.githubusercontent.com/nawafalqari/azkar-api/56df51279ab6eb86dc2f6202c7de26c8948331c1/azkar.json';
 }
