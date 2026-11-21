@@ -1,16 +1,40 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:islamy/features/hadith/data/repositories/hadith_repository_impl.dart';
-import 'package:islamy/features/hadith/domain/repositories/hadith_repository.dart';
+import 'package:islamy/features/hadith/domain/usecases/get_hadith_books_usecase.dart';
+import 'package:islamy/features/hadith/domain/usecases/get_hadith_of_day_usecase.dart';
 import 'package:islamy/features/hadith/presentation/cubit/hadith_state.dart';
 
 class HadithCubit extends Cubit<HadithState> {
-  HadithCubit({HadithRepository? repository})
-      : super(_initialState(repository ?? const HadithRepositoryImpl()));
+  HadithCubit({
+    required this._getBooks,
+    required GetHadithOfDayUseCase getHadithOfDay,
+  }) : super(
+          HadithState(
+            hadithOfDay: getHadithOfDay(),
+            allBooks: const [],
+            status: HadithStatus.loading,
+          ),
+        );
 
-  static HadithState _initialState(HadithRepository repository) {
-    return HadithState(
-      hadithOfDay: repository.getHadithOfDay(),
-      allBooks: List.unmodifiable(repository.getBooks()),
+  final GetHadithBooksUseCase _getBooks;
+
+  Future<void> loadBooks() async {
+    emit(state.copyWith(status: HadithStatus.loading, clearError: true));
+    final result = await _getBooks();
+    if (isClosed) return;
+    result.fold(
+      (failure) => emit(
+        state.copyWith(
+          status: HadithStatus.failure,
+          errorMessage: failure.message,
+        ),
+      ),
+      (books) => emit(
+        state.copyWith(
+          allBooks: List.unmodifiable(books),
+          status: HadithStatus.success,
+          clearError: true,
+        ),
+      ),
     );
   }
 

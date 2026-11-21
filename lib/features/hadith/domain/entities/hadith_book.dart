@@ -2,6 +2,7 @@
 class HadithBook {
   const HadithBook({
     required this.number,
+    required this.slug,
     required this.name,
     required this.arabicName,
     required this.author,
@@ -9,10 +10,12 @@ class HadithBook {
     required this.tag,
     required this.sectionCount,
     required this.hadithCount,
+    required this.total,
     this.isHero = false,
   });
 
   final int number;
+  final String slug;
   final String name;
   final String arabicName;
   final String author;
@@ -24,5 +27,6 @@ class HadithBook {
   /// e.g. "56 Chapters" or "43 Books".
   final String sectionCount;
   final String hadithCount;
+  final int total;
   final bool isHero;
 }

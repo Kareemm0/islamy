@@ -17,6 +17,8 @@ abstract final class Routes {
   // Hadith
   static const hadith = '/hadith';
   static const hadithName = 'hadith';
+  static const hadithDetails = ':slug';
+  static const hadithDetailsName = 'hadith-details';
 
   // Settings
   static const settings = '/settings';

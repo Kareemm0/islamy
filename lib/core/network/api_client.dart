@@ -11,7 +11,7 @@ class ApiClient {
 
   final http.Client _client;
 
-  Future<Map<String, dynamic>> getJson(String url) async {
+  Future<Object?> _getDecoded(String url) async {
     final http.Response response;
     try {
       response = await _client.get(
@@ -31,9 +31,21 @@ class ApiClient {
       );
     }
 
-    final decoded = jsonDecode(utf8.decode(response.bodyBytes));
+    return jsonDecode(utf8.decode(response.bodyBytes));
+  }
+
+  Future<Map<String, dynamic>> getJson(String url) async {
+    final decoded = await _getDecoded(url);
     if (decoded is! Map<String, dynamic>) {
-      throw const ServerException('Unexpected JSON response format');
+      throw const ServerException('Unexpected JSON object response format');
+    }
+    return decoded;
+  }
+
+  Future<List<dynamic>> getJsonList(String url) async {
+    final decoded = await _getDecoded(url);
+    if (decoded is! List<dynamic>) {
+      throw const ServerException('Unexpected JSON list response format');
     }
     return decoded;
   }

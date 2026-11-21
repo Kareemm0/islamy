@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 
 import '../../features/azkar/presentation/pages/azkar_page.dart';
+import '../../features/hadith/presentation/pages/hadith_details_page.dart';
 import '../../features/hadith/presentation/pages/hadith_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/quran/presentation/pages/quran_page.dart';
@@ -60,6 +61,16 @@ abstract final class AppRouter {
                 path: Routes.hadith,
                 name: Routes.hadithName,
                 builder: (context, state) => const HadithPage(),
+                routes: [
+                  GoRoute(
+                    path: Routes.hadithDetails,
+                    name: Routes.hadithDetailsName,
+                    builder: (context, state) => HadithDetailsPage(
+                      slug: state.pathParameters['slug']!,
+                      initialBookName: state.uri.queryParameters['name'],
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

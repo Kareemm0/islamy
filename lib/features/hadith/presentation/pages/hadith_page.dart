@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:islamy/core/di/injection_container.dart';
 import 'package:islamy/core/theme/app_theme.dart';
 import 'package:islamy/features/hadith/presentation/cubit/hadith_cubit.dart';
 import 'package:islamy/features/hadith/presentation/cubit/hadith_state.dart';
@@ -46,24 +47,21 @@ class HadithPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => HadithCubit(),
+    return BlocProvider<HadithCubit>(
+      create: (_) => sl<HadithCubit>()..loadBooks(),
       child: ColoredBox(
         color: AppColors.background,
         child: SafeArea(
           bottom: false,
           child: BlocBuilder<HadithCubit, HadithState>(
             builder: (context, state) => HadithPageBody(
-              totalBooks: state.totalBooks,
-              books: state.books,
-              hadithOfDay: state.hadithOfDay,
-              sahihOnly: state.sahihOnly,
-              saved: state.saved,
+              state: state,
               onQueryChanged: context.read<HadithCubit>().setQuery,
               onFilterTap: () => _handleFilterTap(context),
               onCopy: () => _handleCopy(context),
               onSave: () => _handleSave(context),
               onShare: () => _handleShare(context),
+              onRetry: context.read<HadithCubit>().loadBooks,
             ),
           ),
         ),

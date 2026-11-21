@@ -1,5 +1,15 @@
 import 'package:get_it/get_it.dart';
 
+import '../../features/hadith/data/datasources/hadith_local_datasource.dart';
+import '../../features/hadith/data/datasources/hadith_remote_datasource.dart';
+import '../../features/hadith/data/datasources/hadith_remote_datasource_impl.dart';
+import '../../features/hadith/data/repositories/hadith_repository_impl.dart';
+import '../../features/hadith/domain/repositories/hadith_repository.dart';
+import '../../features/hadith/domain/usecases/get_hadith_books_usecase.dart';
+import '../../features/hadith/domain/usecases/get_hadith_collection_page_usecase.dart';
+import '../../features/hadith/domain/usecases/get_hadith_of_day_usecase.dart';
+import '../../features/hadith/presentation/cubit/hadith_cubit.dart';
+import '../../features/hadith/presentation/cubit/hadith_details_cubit.dart';
 import '../../features/quran/data/datasources/quran_local_datasource.dart';
 import '../../features/quran/data/datasources/quran_remote_datasource.dart';
 import '../../features/quran/data/datasources/quran_remote_datasource_impl.dart';
@@ -79,6 +89,60 @@ Future<void> initDependencies() async {
   if (!sl.isRegistered<SurahDetailsCubit>()) {
     sl.registerFactory<SurahDetailsCubit>(
       () => SurahDetailsCubit(sl<GetSurahDetailsUseCase>()),
+    );
+  }
+
+  // Hadith - Data sources
+  if (!sl.isRegistered<HadithLocalDataSource>()) {
+    sl.registerLazySingleton<HadithLocalDataSource>(
+      () => const HadithLocalDataSource(),
+    );
+  }
+  if (!sl.isRegistered<HadithRemoteDataSource>()) {
+    sl.registerLazySingleton<HadithRemoteDataSource>(
+      () => HadithRemoteDataSourceImpl(sl<ApiClient>()),
+    );
+  }
+
+  // Hadith - Repository
+  if (!sl.isRegistered<HadithRepository>()) {
+    sl.registerLazySingleton<HadithRepository>(
+      () => HadithRepositoryImpl(
+        sl<HadithRemoteDataSource>(),
+        sl<HadithLocalDataSource>(),
+      ),
+    );
+  }
+
+  // Hadith - Use cases
+  if (!sl.isRegistered<GetHadithBooksUseCase>()) {
+    sl.registerLazySingleton<GetHadithBooksUseCase>(
+      () => GetHadithBooksUseCase(sl<HadithRepository>()),
+    );
+  }
+  if (!sl.isRegistered<GetHadithCollectionPageUseCase>()) {
+    sl.registerLazySingleton<GetHadithCollectionPageUseCase>(
+      () => GetHadithCollectionPageUseCase(sl<HadithRepository>()),
+    );
+  }
+  if (!sl.isRegistered<GetHadithOfDayUseCase>()) {
+    sl.registerLazySingleton<GetHadithOfDayUseCase>(
+      () => GetHadithOfDayUseCase(sl<HadithRepository>()),
+    );
+  }
+
+  // Hadith - Cubits
+  if (!sl.isRegistered<HadithCubit>()) {
+    sl.registerFactory<HadithCubit>(
+      () => HadithCubit(
+        getBooks: sl<GetHadithBooksUseCase>(),
+        getHadithOfDay: sl<GetHadithOfDayUseCase>(),
+      ),
+    );
+  }
+  if (!sl.isRegistered<HadithDetailsCubit>()) {
+    sl.registerFactory<HadithDetailsCubit>(
+      () => HadithDetailsCubit(sl<GetHadithCollectionPageUseCase>()),
     );
   }
 }
