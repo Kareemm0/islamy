@@ -1,23 +1,44 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../data/datasources/quran_local_datasource.dart';
-import '../../data/repositories/quran_repository_impl.dart';
-import '../../domain/repositories/quran_repository.dart';
+import '../../domain/usecases/get_quran_bookmarks_usecase.dart';
+import '../../domain/usecases/get_quran_last_read_usecase.dart';
+import '../../domain/usecases/get_surahs_usecase.dart';
 import 'quran_state.dart';
 
 class QuranCubit extends Cubit<QuranState> {
-  QuranCubit({QuranRepository? repository})
-      : super(
-          _initialState(
-            repository ?? const QuranRepositoryImpl(QuranLocalDatasource()),
+  QuranCubit({
+    required this._getSurahs,
+    required GetQuranLastReadUseCase getLastRead,
+    required GetQuranBookmarksUseCase getBookmarks,
+  }) : super(
+          QuranState(
+            allSurahs: const [],
+            lastRead: getLastRead(),
+            bookmarked: Set<int>.unmodifiable(getBookmarks()),
+            status: QuranStatus.loading,
           ),
         );
 
-  static QuranState _initialState(QuranRepository repository) {
-    return QuranState(
-      allSurahs: List.unmodifiable(repository.getSurahs()),
-      lastRead: repository.getLastRead(),
-      bookmarked: Set<int>.unmodifiable(repository.getInitialBookmarks()),
+  final GetSurahsUseCase _getSurahs;
+
+  Future<void> loadSurahs() async {
+    emit(state.copyWith(status: QuranStatus.loading, clearError: true));
+    final result = await _getSurahs();
+    if (isClosed) return;
+    result.fold(
+      (failure) => emit(
+        state.copyWith(
+          status: QuranStatus.failure,
+          errorMessage: failure.message,
+        ),
+      ),
+      (surahs) => emit(
+        state.copyWith(
+          allSurahs: List.unmodifiable(surahs),
+          status: QuranStatus.success,
+          clearError: true,
+        ),
+      ),
     );
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:islamy/core/di/injection_container.dart';
 import 'package:islamy/core/theme/app_theme.dart';
 
 import '../cubit/quran_cubit.dart';
@@ -11,8 +12,8 @@ class QuranPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => QuranCubit(),
+    return BlocProvider<QuranCubit>(
+      create: (_) => sl<QuranCubit>()..loadSurahs(),
       child: ColoredBox(
         color: AppColors.background,
         child: SafeArea(

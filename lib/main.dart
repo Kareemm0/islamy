@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
+import 'core/di/injection_container.dart';
 import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initDependencies();
   runApp(const IslamyApp());
 }
 

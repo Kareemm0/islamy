@@ -3,19 +3,25 @@ import 'package:flutter/foundation.dart';
 import '../../domain/entities/quran_last_read_entity.dart';
 import '../../domain/entities/quran_surah_entity.dart';
 
+enum QuranStatus { initial, loading, success, failure }
+
 @immutable
 class QuranState {
   const QuranState({
     required this.allSurahs,
     required this.lastRead,
     required this.bookmarked,
+    this.status = QuranStatus.initial,
     this.query = '',
+    this.errorMessage,
   });
 
   final List<QuranSurah> allSurahs;
   final QuranLastRead lastRead;
   final Set<int> bookmarked;
+  final QuranStatus status;
   final String query;
+  final String? errorMessage;
 
   List<QuranSurah> get surahs {
     final q = query.trim().toLowerCase();
@@ -37,13 +43,18 @@ class QuranState {
     List<QuranSurah>? allSurahs,
     QuranLastRead? lastRead,
     Set<int>? bookmarked,
+    QuranStatus? status,
     String? query,
+    String? errorMessage,
+    bool clearError = false,
   }) {
     return QuranState(
       allSurahs: allSurahs ?? this.allSurahs,
       lastRead: lastRead ?? this.lastRead,
       bookmarked: bookmarked ?? this.bookmarked,
+      status: status ?? this.status,
       query: query ?? this.query,
+      errorMessage: clearError ? null : (errorMessage ?? this.errorMessage),
     );
   }
 
@@ -54,7 +65,9 @@ class QuranState {
         listEquals(other.allSurahs, allSurahs) &&
         other.lastRead == lastRead &&
         setEquals(other.bookmarked, bookmarked) &&
-        other.query == query;
+        other.status == status &&
+        other.query == query &&
+        other.errorMessage == errorMessage;
   }
 
   @override
@@ -62,6 +75,8 @@ class QuranState {
         Object.hashAll(allSurahs),
         lastRead,
         Object.hashAllUnordered(bookmarked),
+        status,
         query,
+        errorMessage,
       );
 }

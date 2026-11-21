@@ -4,6 +4,7 @@ import '../../features/azkar/presentation/pages/azkar_page.dart';
 import '../../features/hadith/presentation/pages/hadith_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/quran/presentation/pages/quran_page.dart';
+import '../../features/quran/presentation/pages/surah_details_page.dart';
 import '../../features/settings/presentation/pages/settings_page.dart';
 import '../widgets/app_shell.dart';
 import 'routes.dart';
@@ -32,6 +33,15 @@ abstract final class AppRouter {
                 path: Routes.quran,
                 name: Routes.quranName,
                 builder: (context, state) => const QuranPage(),
+                routes: [
+                  GoRoute(
+                    path: Routes.surahDetails,
+                    name: Routes.surahDetailsName,
+                    builder: (context, state) => SurahDetailsPage(
+                      surahId: int.parse(state.pathParameters['id']!),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

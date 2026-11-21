@@ -19,12 +19,21 @@ dependencies:
   flutter_svg: ^2.5.0
   go_router: ^18.1.4
   flutter_bloc: ^9.1.1
+  http: ^1.6.0
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.12.0
+  fpdart: ^1.2.0
+  get_it: ^9.3.0
+  shimmer: ^4.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_lints: ^6.0.0
+  freezed: ^4.0.3
+  json_serializable: ^6.15.2
+  build_runner: ^2.17.1
 
 flutter:
 

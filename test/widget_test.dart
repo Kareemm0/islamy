@@ -2,11 +2,13 @@ import 'dart:ui';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:islamy/core/di/injection_container.dart';
 import 'package:islamy/main.dart';
 
 void main() {
-  setUpAll(() {
+  setUpAll(() async {
     GoogleFonts.config.allowRuntimeFetching = false;
+    await initDependencies();
   });
 
   testWidgets('IslamyApp renders all four tabs without errors at 390x844', (

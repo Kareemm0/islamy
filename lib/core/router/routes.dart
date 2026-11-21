@@ -7,6 +7,8 @@ abstract final class Routes {
   // Quran
   static const quran = '/quran';
   static const quranName = 'quran';
+  static const surahDetails = ':id';
+  static const surahDetailsName = 'surah-details';
 
   // Azkar
   static const azkar = '/azkar';
