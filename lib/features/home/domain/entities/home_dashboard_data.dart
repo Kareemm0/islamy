@@ -58,4 +58,36 @@ class HomeDashboardData {
 
   final int pagesGoal;
   final int initialPagesRead;
+
+  HomeDashboardData copyWithPrayerData({
+    required String hijriDateEn,
+    required String gregorianDate,
+    required String location,
+    required List<HomePrayer> prayers,
+    required int nextPrayerIndex,
+    required Duration initialRemaining,
+  }) => HomeDashboardData(
+    hijriDateEn: hijriDateEn,
+    hijriDateAr: hijriDateAr,
+    gregorianDate: gregorianDate,
+    location: location,
+    prayers: prayers,
+    nextPrayerIndex: nextPrayerIndex,
+    qiblaDegrees: qiblaDegrees,
+    initialRemaining: initialRemaining,
+    initialAthanActive: initialAthanActive,
+    morningAzkar: morningAzkar,
+    eveningAzkar: eveningAzkar,
+    initialAzkarDone: initialAzkarDone,
+    lastReadSurah: lastReadSurah,
+    lastReadSurahAr: lastReadSurahAr,
+    lastReadPage: lastReadPage,
+    lastReadAyah: lastReadAyah,
+    lastReadProgress: lastReadProgress,
+    initialTasbihCount: initialTasbihCount,
+    hadith: hadith,
+    initialHadithBookmarked: initialHadithBookmarked,
+    pagesGoal: pagesGoal,
+    initialPagesRead: initialPagesRead,
+  );
 }

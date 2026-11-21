@@ -16,4 +16,18 @@ abstract final class ApiEndpoints {
 
   static const azkarUrl =
       'https://raw.githubusercontent.com/nawafalqari/azkar-api/56df51279ab6eb86dc2f6202c7de26c8948331c1/azkar.json';
+
+  static const prayerTimesBaseUrl = 'https://api.aladhan.com/v1';
+
+  static String prayerTimesByCity({
+    required DateTime date,
+    required String city,
+  }) {
+    final datePath =
+        '${date.day.toString().padLeft(2, '0')}-'
+        '${date.month.toString().padLeft(2, '0')}-${date.year}';
+    return '$prayerTimesBaseUrl/timingsByCity/$datePath'
+        '?city=${Uri.encodeQueryComponent(city)}'
+        '&country=Egypt&method=5';
+  }
 }

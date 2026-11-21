@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data/repositories/home_repository_impl.dart';
+import '../../data/datasources/prayer_times_remote_datasource.dart';
 import '../../domain/entities/home_azkar_period.dart';
 import '../../domain/repositories/home_repository.dart';
 import 'home_state.dart';
@@ -16,9 +17,51 @@ class HomeCubit extends Cubit<HomeState> {
         ),
       ) {
     _timer = Timer.periodic(const Duration(seconds: 1), (_) => _tick());
+    _loadPrayerTimes();
   }
 
   Timer? _timer;
+
+  Future<void> _loadPrayerTimes() async {
+    try {
+      final result = await PrayerTimesRemoteDataSource().getToday();
+      if (isClosed) return;
+      final now = DateTime.now();
+      var nextIndex = result.prayers.indexWhere((prayer) {
+        final parts = prayer.time.split(':');
+        final time = DateTime(
+          now.year,
+          now.month,
+          now.day,
+          int.parse(parts[0]),
+          int.parse(parts[1]),
+        );
+        return time.isAfter(now);
+      });
+      if (nextIndex < 0) nextIndex = 0;
+      final prayer = result.prayers[nextIndex];
+      final parts = prayer.time.split(':');
+      var target = DateTime(
+        now.year,
+        now.month,
+        now.day,
+        int.parse(parts[0]),
+        int.parse(parts[1]),
+      );
+      if (!target.isAfter(now)) target = target.add(const Duration(days: 1));
+      final data = state.data.copyWithPrayerData(
+        hijriDateEn: result.hijriDate,
+        gregorianDate: result.gregorianDate,
+        location: '${result.city}, Egypt',
+        prayers: result.prayers,
+        nextPrayerIndex: nextIndex,
+        initialRemaining: target.difference(now),
+      );
+      emit(state.copyWith(data: data, remaining: target.difference(now)));
+    } catch (_) {
+      // Keep the bundled dashboard values when location or the service is unavailable.
+    }
+  }
 
   void toggleAthan() {
     emit(state.copyWith(athanActive: !state.athanActive));
@@ -28,9 +71,7 @@ class HomeCubit extends Cubit<HomeState> {
     if (isClosed) return;
     if (state.remaining.inSeconds > 0) {
       emit(
-        state.copyWith(
-          remaining: state.remaining - const Duration(seconds: 1),
-        ),
+        state.copyWith(remaining: state.remaining - const Duration(seconds: 1)),
       );
     }
   }

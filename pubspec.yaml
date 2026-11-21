@@ -25,6 +25,8 @@ dependencies:
   fpdart: ^1.2.0
   get_it: ^9.3.0
   shimmer: ^4.0.0
+  geolocator: ^14.1.2
+  geocoding: ^5.0.1
 
 dev_dependencies:
   flutter_test:
