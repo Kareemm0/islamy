@@ -1,0 +1,11 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Progress Ring SVG" clip-path="url(#clip0_0_46)">
+<path id="Vector" d="M16 1.85289C23.808 1.85289 30.1471 8.192 30.1471 16C30.1471 23.808 23.808 30.1471 16 30.1471C8.192 30.1471 1.85289 23.808 1.85289 16C1.85289 8.192 8.192 1.85289 16 1.85289" stroke-width="2.66667" stroke="white" stroke-opacity="0.2"/>
+<path id="counter-svg-arc" d="M16 1.85333L17.9671 1.98844L19.896 2.39644L21.7493 3.07022L23.4898 3.99644L25.0853 5.15467L26.5049 6.52356L27.7209 8.07556L28.7102 9.78133L29.4524 11.608L29.9307 13.5209L30.1378 15.4818L30.0738 17.4524L29.7369 19.3947L29.1324 21.272L28.2711 23.0453L27.1707 24.6818L25.8551 26.1502L24.3484 27.4222L22.6809 28.4738L20.8818 29.2818L18.9884 29.8311L17.0364 30.1093L15.0649 30.1164L13.1111 29.8516L11.2133 29.3164L9.40889 28.5209L7.73333 27.4818L6.21778 26.2204L4.89156 24.7618L3.78044 23.1333" stroke-width="2.66667" stroke-linecap="round" stroke="#FFE088"/>
+</g>
+<defs>
+<clipPath id="clip0_0_46">
+<rect width="32" height="32" fill="white"/>
+</clipPath>
+</defs>
+</svg>
