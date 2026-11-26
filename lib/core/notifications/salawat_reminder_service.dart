@@ -14,11 +14,13 @@ class SalawatReminderService {
   final FlutterLocalNotificationsPlugin _plugin =
       FlutterLocalNotificationsPlugin();
 
+  Timer? _foregroundTimer;
   bool _initialized = false;
 
   static const _intervalKey = 'salawat_interval_minutes';
-  static const _channelId = 'salawat_voice_channel_v3';
+  static const _channelId = 'salawat_voice_channel_v5';
   static const _channelName = 'تذكير الصلاة على النبي ﷺ';
+  static const _testNotificationId = 6998;
   static const _periodicNotificationId = 6999;
   static const _baseNotificationId = 7000;
   static const _scheduledCount = 60;
@@ -76,19 +78,43 @@ class SalawatReminderService {
     }
   }
 
+  /// Requests permissions sequentially so the plugin does not throw
+  /// `permissionRequestInProgress` when both notification and exact alarm
+  /// permissions are needed.
   Future<void> requestPermissions() async {
     final androidPlugin = _plugin
         .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin
         >();
-    await androidPlugin?.requestNotificationsPermission();
-    await androidPlugin?.requestExactAlarmsPermission();
+    if (androidPlugin != null) {
+      try {
+        final notifEnabled =
+            await androidPlugin.areNotificationsEnabled() ?? false;
+        if (!notifEnabled) {
+          await androidPlugin.requestNotificationsPermission();
+        }
+      } catch (_) {}
+
+      try {
+        final canExact =
+            await androidPlugin.canScheduleExactNotifications() ?? false;
+        if (!canExact) {
+          await androidPlugin.requestExactAlarmsPermission();
+        }
+      } catch (_) {}
+    }
 
     final iosPlugin = _plugin
         .resolvePlatformSpecificImplementation<
           IOSFlutterLocalNotificationsPlugin
         >();
-    await iosPlugin?.requestPermissions(alert: true, badge: false, sound: true);
+    try {
+      await iosPlugin?.requestPermissions(
+        alert: true,
+        badge: false,
+        sound: true,
+      );
+    } catch (_) {}
   }
 
   NotificationDetails _notificationDetails() {
@@ -97,12 +123,17 @@ class SalawatReminderService {
       _channelName,
       channelDescription: 'تنبيه صوتي للصلاة على النبي ﷺ',
       importance: Importance.max,
-      priority: Priority.high,
+      priority: Priority.max,
       playSound: true,
       sound: RawResourceAndroidNotificationSound('salawat'),
       audioAttributesUsage: AudioAttributesUsage.alarm,
+      category: AndroidNotificationCategory.alarm,
+      visibility: NotificationVisibility.public,
       enableVibration: true,
-      silent: false,
+      onlyAlertOnce: false,
+      autoCancel: true,
+      // Auto-dismiss visual banner after 5 seconds so only the voice sound is noticed.
+      timeoutAfter: 5000,
     );
     const iosDetails = DarwinNotificationDetails(
       presentAlert: false,
@@ -117,8 +148,8 @@ class SalawatReminderService {
     );
   }
 
-  /// Sets the reminder interval in minutes (5..30) and schedules background
-  /// sound notifications that fire even when the app is closed.
+  /// Sets the reminder interval in minutes (5..30) and schedules recurring
+  /// notifications that play the "صلِّ على محمد" voice even when the app is closed.
   Future<void> setIntervalMinutes(int minutes) async {
     await init();
     await requestPermissions();
@@ -129,18 +160,20 @@ class SalawatReminderService {
   /// Disables the reminder and cancels all pending notifications.
   Future<void> disable() async {
     await init();
+    _foregroundTimer?.cancel();
+    _foregroundTimer = null;
     await _box.delete(_intervalKey);
     await _cancelPendingBatch();
   }
 
-  /// Plays an immediate test notification with the "صلِّ على محمد" sound.
+  /// Plays an immediate notification with the "صلِّ على محمد" sound.
   Future<void> playTestNotification() async {
     await init();
     await requestPermissions();
     await _plugin.show(
-      id: _periodicNotificationId - 1,
-      title: '',
-      body: '',
+      id: _testNotificationId,
+      title: '\u200B',
+      body: '\u200B',
       notificationDetails: _notificationDetails(),
     );
   }
@@ -153,46 +186,54 @@ class SalawatReminderService {
   }
 
   Future<void> _scheduleAll(int minutes) async {
+    _foregroundTimer?.cancel();
     await _cancelPendingBatch();
 
     final details = _notificationDetails();
-    final duration = Duration(minutes: minutes);
+    final now = tz.TZDateTime.now(tz.local);
 
-    // Use native OS periodic scheduling with custom duration (supported on Android & iOS)
-    try {
-      await _plugin.periodicallyShowWithDuration(
-        id: _periodicNotificationId,
-        title: '',
-        body: '',
-        repeatDurationInterval: duration,
-        notificationDetails: details,
-        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      );
-    } catch (_) {
-      // Fallback: pre-schedule 60 OS-level exact alarm notifications
-      final now = tz.TZDateTime.now(tz.local);
-      for (var i = 1; i <= _scheduledCount; i++) {
-        final scheduledTime = now.add(Duration(minutes: minutes * i));
+    final androidPlugin = _plugin
+        .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin
+        >();
+    final canExact =
+        await androidPlugin?.canScheduleExactNotifications() ?? false;
+    final scheduleMode = canExact
+        ? AndroidScheduleMode.alarmClock
+        : AndroidScheduleMode.inexactAllowWhileIdle;
+
+    // 1. Schedule 60 distinct OS-level alarms (covering up to 5–30 hours offline)
+    // using distinct notification IDs so Android never suppresses repeated alerts
+    // and AlarmClock mode bypasses Doze mode when the app is closed.
+    for (var i = 1; i <= _scheduledCount; i++) {
+      final scheduledTime = now.add(Duration(minutes: minutes * i));
+      try {
+        await _plugin.zonedSchedule(
+          id: _baseNotificationId + (i - 1),
+          title: '\u200B',
+          body: '\u200B',
+          scheduledDate: scheduledTime,
+          notificationDetails: details,
+          androidScheduleMode: scheduleMode,
+        );
+      } catch (_) {
         try {
           await _plugin.zonedSchedule(
             id: _baseNotificationId + (i - 1),
-            title: '',
-            body: '',
-            scheduledDate: scheduledTime,
-            notificationDetails: details,
-            androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-          );
-        } catch (_) {
-          await _plugin.zonedSchedule(
-            id: _baseNotificationId + (i - 1),
-            title: '',
-            body: '',
+            title: '\u200B',
+            body: '\u200B',
             scheduledDate: scheduledTime,
             notificationDetails: details,
             androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
           );
-        }
+        } catch (_) {}
       }
     }
+
+    // 2. Also refresh the queue automatically whenever the app is open.
+    _foregroundTimer = Timer.periodic(
+      Duration(minutes: minutes),
+      (_) => _scheduleAll(minutes),
+    );
   }
 }

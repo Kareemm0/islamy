@@ -12,11 +12,14 @@ class LocalDatabase {
 
   static const settingsBox = 'settings_box';
 
+  static const homeBox = 'home_box';
+
   static Future<void> init() async {
     await Hive.initFlutter();
     await Hive.openBox<String>(quranBox);
     await Hive.openBox<String>(azkarBox);
     await Hive.openBox<String>(hadithBox);
     await Hive.openBox<String>(settingsBox);
+    await Hive.openBox<String>(homeBox);
   }
 }

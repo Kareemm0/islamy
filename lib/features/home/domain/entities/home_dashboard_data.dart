@@ -68,7 +68,7 @@ class HomeDashboardData {
     required Duration initialRemaining,
   }) => HomeDashboardData(
     hijriDateEn: hijriDateEn,
-    hijriDateAr: hijriDateAr,
+    hijriDateAr: hijriDateEn,
     gregorianDate: gregorianDate,
     location: location,
     prayers: prayers,

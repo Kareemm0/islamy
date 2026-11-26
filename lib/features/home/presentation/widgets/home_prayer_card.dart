@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../cubit/home_state.dart';
 import 'home_prayer_card_footer.dart';
+import 'home_prayer_card_shimmer.dart';
 import 'home_prayer_card_top_row.dart';
 import 'home_prayer_countdown_row.dart';
 import 'home_prayer_timeline.dart';
@@ -20,6 +21,9 @@ class HomePrayerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (state.isPrayerLoading || state.prayers.isEmpty) {
+      return const HomePrayerCardShimmer();
+    }
     return Container(
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(

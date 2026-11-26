@@ -137,20 +137,14 @@ class HomeLocalDatasource {
 
   HomeDashboardData getDashboardData() {
     return HomeDashboardData(
-      hijriDateEn: '١٤ رمضان ١٤٤٦ هـ',
-      hijriDateAr: '١٤ رمضان ١٤٤٦ هـ',
-      gregorianDate: 'الجمعة، ١٤ مارس ٢٠٢٥',
-      location: 'القاهرة، مصر',
-      prayers: const [
-        HomePrayer(name: 'الفجر', arabicName: 'الفجر', time: '04:42'),
-        HomePrayer(name: 'الظهر', arabicName: 'الظهر', time: '12:04'),
-        HomePrayer(name: 'العصر', arabicName: 'العصر', time: '03:28'),
-        HomePrayer(name: 'المغرب', arabicName: 'المغرب', time: '06:05'),
-        HomePrayer(name: 'العشاء', arabicName: 'العشاء', time: '07:22'),
-      ],
-      nextPrayerIndex: 2,
+      hijriDateEn: '',
+      hijriDateAr: '',
+      gregorianDate: '',
+      location: '',
+      prayers: const [],
+      nextPrayerIndex: 0,
       qiblaDegrees: 136,
-      initialRemaining: const Duration(hours: 1, minutes: 24, seconds: 16),
+      initialRemaining: Duration.zero,
       initialAthanActive: true,
       morningAzkar: _morningAzkar,
       eveningAzkar: _eveningAzkar,

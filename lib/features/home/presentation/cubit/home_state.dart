@@ -18,6 +18,7 @@ class HomeState {
     required this.tasbihCount,
     required this.hadithBookmarked,
     required this.pagesRead,
+    this.isPrayerLoading = true,
   });
 
   factory HomeState.initial(HomeDashboardData data) {
@@ -32,6 +33,7 @@ class HomeState {
       tasbihCount: data.initialTasbihCount,
       hadithBookmarked: data.initialHadithBookmarked,
       pagesRead: data.initialPagesRead,
+      isPrayerLoading: data.prayers.isEmpty,
     );
   }
 
@@ -43,6 +45,7 @@ class HomeState {
   final int tasbihCount;
   final bool hadithBookmarked;
   final int pagesRead;
+  final bool isPrayerLoading;
 
   // Header
   String get hijriDateEn => data.hijriDateEn;
@@ -54,7 +57,9 @@ class HomeState {
   List<HomePrayer> get prayers => data.prayers;
   int get nextPrayerIndex => data.nextPrayerIndex;
   int get qiblaDegrees => data.qiblaDegrees;
-  HomePrayer get nextPrayer => data.prayers[data.nextPrayerIndex];
+  HomePrayer get nextPrayer => data.prayers.isEmpty
+      ? const HomePrayer(name: '', arabicName: '', time: '00:00')
+      : data.prayers[data.nextPrayerIndex.clamp(0, data.prayers.length - 1)];
 
   String get remainingText {
     String two(int n) => n.toString().padLeft(2, '0');
@@ -93,6 +98,7 @@ class HomeState {
     int? tasbihCount,
     bool? hadithBookmarked,
     int? pagesRead,
+    bool? isPrayerLoading,
   }) {
     return HomeState(
       data: data ?? this.data,
@@ -105,6 +111,7 @@ class HomeState {
       tasbihCount: tasbihCount ?? this.tasbihCount,
       hadithBookmarked: hadithBookmarked ?? this.hadithBookmarked,
       pagesRead: pagesRead ?? this.pagesRead,
+      isPrayerLoading: isPrayerLoading ?? this.isPrayerLoading,
     );
   }
 
@@ -119,7 +126,8 @@ class HomeState {
         mapEquals(other.azkarDoneMap, azkarDoneMap) &&
         other.tasbihCount == tasbihCount &&
         other.hadithBookmarked == hadithBookmarked &&
-        other.pagesRead == pagesRead;
+        other.pagesRead == pagesRead &&
+        other.isPrayerLoading == isPrayerLoading;
   }
 
   @override
@@ -134,5 +142,6 @@ class HomeState {
     tasbihCount,
     hadithBookmarked,
     pagesRead,
+    isPrayerLoading,
   );
 }
