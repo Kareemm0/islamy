@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../data/datasources/home_local_datasource.dart';
 import '../../data/repositories/home_repository_impl.dart';
 import '../../data/datasources/prayer_times_remote_datasource.dart';
 import '../../domain/entities/home_azkar_period.dart';
@@ -11,7 +12,8 @@ import 'home_state.dart';
 /// Manages the interactive state of the home dashboard.
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit({HomeRepository? repository})
-    : super(
+    : _currentDay = DateTime.now().day,
+      super(
         HomeState.initial(
           (repository ?? const HomeRepositoryImpl()).getDashboardData(),
         ),
@@ -21,6 +23,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Timer? _timer;
+  int _currentDay;
 
   Future<void> _loadPrayerTimes() async {
     try {
@@ -69,10 +72,17 @@ class HomeCubit extends Cubit<HomeState> {
 
   void _tick() {
     if (isClosed) return;
-    if (state.remaining.inSeconds > 0) {
-      emit(
-        state.copyWith(remaining: state.remaining - const Duration(seconds: 1)),
-      );
+    final now = DateTime.now();
+    var nextData = state.data;
+    if (now.day != _currentDay) {
+      _currentDay = now.day;
+      nextData = nextData.copyWithHadith(HomeLocalDatasource.hadithForDate(now));
+    }
+    final nextRemaining = state.remaining.inSeconds > 0
+        ? state.remaining - const Duration(seconds: 1)
+        : state.remaining;
+    if (nextData != state.data || nextRemaining != state.remaining) {
+      emit(state.copyWith(data: nextData, remaining: nextRemaining));
     }
   }
 

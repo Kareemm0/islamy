@@ -90,4 +90,29 @@ class HomeDashboardData {
     pagesGoal: pagesGoal,
     initialPagesRead: initialPagesRead,
   );
+
+  HomeDashboardData copyWithHadith(HomeHadith newHadith) => HomeDashboardData(
+    hijriDateEn: hijriDateEn,
+    hijriDateAr: hijriDateAr,
+    gregorianDate: gregorianDate,
+    location: location,
+    prayers: prayers,
+    nextPrayerIndex: nextPrayerIndex,
+    qiblaDegrees: qiblaDegrees,
+    initialRemaining: initialRemaining,
+    initialAthanActive: initialAthanActive,
+    morningAzkar: morningAzkar,
+    eveningAzkar: eveningAzkar,
+    initialAzkarDone: initialAzkarDone,
+    lastReadSurah: lastReadSurah,
+    lastReadSurahAr: lastReadSurahAr,
+    lastReadPage: lastReadPage,
+    lastReadAyah: lastReadAyah,
+    lastReadProgress: lastReadProgress,
+    initialTasbihCount: initialTasbihCount,
+    hadith: newHadith,
+    initialHadithBookmarked: initialHadithBookmarked,
+    pagesGoal: pagesGoal,
+    initialPagesRead: initialPagesRead,
+  );
 }

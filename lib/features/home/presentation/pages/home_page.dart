@@ -11,7 +11,6 @@ import '../widgets/home_azkar_card.dart';
 import '../widgets/home_hadith_card.dart';
 import '../widgets/home_header.dart';
 import '../widgets/home_prayer_card.dart';
-import '../widgets/home_quran_goal_card.dart';
 import '../widgets/home_reflection_banner.dart';
 import '../widgets/home_shortcuts.dart';
 
@@ -65,10 +64,7 @@ class HomePage extends StatelessWidget {
                       onToggleBookmark: cubit.toggleHadithBookmark,
                     ),
                     const SizedBox(height: 18),
-                    HomeQuranGoalCard(
-                      state: state,
-                      onReadPage: cubit.readPage,
-                    ),
+
                     const SizedBox(height: 18),
                     const HomeReflectionBanner(),
                   ],

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:islamy/core/theme/app_theme.dart';
 
 import '../cubit/home_state.dart';
-import 'home_action_icon.dart';
 import 'home_style.dart';
 import 'home_svg.dart';
 
@@ -60,31 +59,6 @@ class HomeHadithCard extends StatelessWidget {
                     letterSpacing: 0.15,
                   ),
                 ),
-              ),
-              const Spacer(),
-              HomeActionIcon(
-                tooltip: state.hadithBookmarked
-                    ? 'إزالة العلامة'
-                    : 'حفظ الحديث',
-                onTap: onToggleBookmark,
-                child: Opacity(
-                  opacity: state.hadithBookmarked ? 1 : 0.65,
-                  child: const HomeSvg(
-                    'icon_bookmark',
-                    width: 10.5,
-                    height: 13.5,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 4),
-              HomeActionIcon(
-                tooltip: 'مشاركة الحديث',
-                onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('الحديث جاهز للمشاركة')),
-                  );
-                },
-                child: const HomeSvg('icon_share', width: 13.5, height: 15),
               ),
             ],
           ),
@@ -158,11 +132,7 @@ class HomeHadithCard extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const HomeSvg(
-                    'icon_verified',
-                    width: 12.833,
-                    height: 12.25,
-                  ),
+                  const HomeSvg('icon_verified', width: 12.833, height: 12.25),
                   const SizedBox(width: 4),
                   Text(
                     h.grade,
