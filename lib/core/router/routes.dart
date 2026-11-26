@@ -25,4 +25,6 @@ abstract final class Routes {
   // Settings
   static const settings = '/settings';
   static const settingsName = 'settings';
+  static const salawatReminder = 'salawat-reminder';
+  static const salawatReminderName = 'salawat-reminder';
 }

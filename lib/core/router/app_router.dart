@@ -8,6 +8,7 @@ import '../../features/home/presentation/pages/home_page.dart';
 import '../../features/home/presentation/pages/qibla_page.dart';
 import '../../features/quran/presentation/pages/quran_page.dart';
 import '../../features/quran/presentation/pages/surah_details_page.dart';
+import '../../features/settings/presentation/pages/salawat_reminder_page.dart';
 import '../../features/settings/presentation/pages/settings_page.dart';
 import '../widgets/app_shell.dart';
 import 'routes.dart';
@@ -105,6 +106,13 @@ abstract final class AppRouter {
                 path: Routes.settings,
                 name: Routes.settingsName,
                 builder: (context, state) => const SettingsPage(),
+                routes: [
+                  GoRoute(
+                    path: Routes.salawatReminder,
+                    name: Routes.salawatReminderName,
+                    builder: (context, state) => const SalawatReminderPage(),
+                  ),
+                ],
               ),
             ],
           ),

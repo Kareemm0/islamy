@@ -32,6 +32,7 @@ import '../../features/quran/presentation/cubit/quran_cubit.dart';
 import '../../features/quran/presentation/cubit/surah_details_cubit.dart';
 import '../local_storage/local_database.dart';
 import '../network/api_client.dart';
+import '../notifications/salawat_reminder_service.dart';
 
 final sl = GetIt.instance;
 
@@ -44,6 +45,14 @@ Future<void> initDependencies() async {
 
   // Local database
   await LocalDatabase.init();
+
+  if (!sl.isRegistered<SalawatReminderService>()) {
+    final salawatService = SalawatReminderService(
+      Hive.box<String>(LocalDatabase.settingsBox),
+    );
+    await salawatService.init();
+    sl.registerSingleton<SalawatReminderService>(salawatService);
+  }
 
   if (!sl.isRegistered<BookmarkCubit>()) {
     sl.registerLazySingleton<BookmarkCubit>(

@@ -14,18 +14,22 @@ class HomeShortcutFooterText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 4),
-      child: Text(
-        text,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        style: AppTheme.text(
-          size: 11,
-          weight: FontWeight.w500,
-          color: color,
-          height: 16,
-          letterSpacing: 0.44,
+    return Flexible(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 4),
+        child: FittedBox(
+          child: Text(
+            text,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: AppTheme.text(
+              size: 11,
+              weight: FontWeight.w500,
+              color: color,
+              height: 16,
+              letterSpacing: 0.44,
+            ),
+          ),
         ),
       ),
     );
