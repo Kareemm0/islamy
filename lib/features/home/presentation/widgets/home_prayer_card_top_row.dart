@@ -49,7 +49,7 @@ class HomePrayerCardTopRow extends StatelessWidget {
                       const SizedBox(width: 4),
                       Flexible(
                         child: Text(
-                          'NEXT PRAYER',
+                          'الصلاة القادمة',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: AppTheme.text(
@@ -62,22 +62,6 @@ class HomePrayerCardTopRow extends StatelessWidget {
                         ),
                       ),
                     ],
-                  ),
-                ),
-              ),
-              const SizedBox(width: 8),
-              Flexible(
-                child: Text(
-                  'الصلاة القادمة',
-                  textDirection: TextDirection.rtl,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: AppTheme.text(
-                    size: 13,
-                    weight: FontWeight.w500,
-                    color: AppColors.mintSoft,
-                    height: 18,
-                    letterSpacing: 0.26,
                   ),
                 ),
               ),
@@ -108,7 +92,7 @@ class HomePrayerCardTopRow extends StatelessWidget {
                 ),
                 const SizedBox(width: 6),
                 Text(
-                  athanActive ? 'Athan Active' : 'Athan Muted',
+                  athanActive ? 'الأذان مفعل' : 'الأذان صامت',
                   style: AppTheme.text(
                     size: 11,
                     weight: FontWeight.w600,

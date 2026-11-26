@@ -84,7 +84,7 @@ class HomeQuranGoalCard extends StatelessWidget {
                   children: [
                     Flexible(
                       child: Text(
-                        'Daily Quran Goal',
+                        'ورد اليوم القرآني',
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: AppTheme.text(
@@ -112,7 +112,7 @@ class HomeQuranGoalCard extends StatelessWidget {
                   TextSpan(
                     children: [
                       TextSpan(
-                        text: '${state.pagesRead} of ${state.pagesGoal}',
+                        text: '${state.pagesRead} من ${state.pagesGoal}',
                         style: AppTheme.text(
                           size: 13,
                           weight: FontWeight.w700,
@@ -121,7 +121,7 @@ class HomeQuranGoalCard extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: ' pages read today.\n',
+                        text: ' صفحات قُرئت اليوم.\n',
                         style: AppTheme.text(
                           size: 13,
                           color: AppColors.onSurfaceVariant,
@@ -130,9 +130,9 @@ class HomeQuranGoalCard extends StatelessWidget {
                       ),
                       TextSpan(
                         text: state.pagesLeft > 0
-                            ? 'Just ${state.pagesLeft} '
-                                '${state.pagesLeft == 1 ? 'page' : 'pages'} left!'
-                            : 'Goal completed!',
+                            ? 'تبقى ${state.pagesLeft} '
+                                '${state.pagesLeft == 1 ? 'صفحة' : 'صفحات'} فقط!'
+                            : 'اكتمل الورد اليومي!',
                         style: AppTheme.text(
                           size: 13,
                           color: AppColors.onSurfaceVariant,
@@ -140,18 +140,6 @@ class HomeQuranGoalCard extends StatelessWidget {
                         ),
                       ),
                     ],
-                  ),
-                ),
-                const SizedBox(height: 3.5),
-                Text(
-                  'ورد اليوم القرآني',
-                  textDirection: TextDirection.rtl,
-                  style: AppTheme.text(
-                    size: 11,
-                    weight: FontWeight.w500,
-                    color: AppColors.gold,
-                    height: 16,
-                    letterSpacing: 0.44,
                   ),
                 ),
               ],
@@ -173,7 +161,7 @@ class HomeQuranGoalCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Read',
+                      'اقرأ',
                       style: AppTheme.text(
                         size: 13,
                         weight: FontWeight.w700,

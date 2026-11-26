@@ -103,7 +103,7 @@ class AzkarCompletedCompactCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        'Completed • تمت\nالقراءة',
+                        'تمت القراءة',
                         style: AppTheme.text(
                           size: 11,
                           weight: FontWeight.w700,
@@ -173,8 +173,8 @@ class AzkarCompletedCompactCard extends StatelessWidget {
               children: [
                 Text(
                   item.recitedAt != null
-                      ? 'Recited at ${item.recitedAt}'
-                      : 'Completed today',
+                      ? 'قُرئ الساعة ${item.recitedAt}'
+                      : 'اكتمل اليوم',
                   style: AppTheme.text(
                     size: 11,
                     weight: FontWeight.w600,
@@ -194,7 +194,7 @@ class AzkarCompletedCompactCard extends StatelessWidget {
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
                   child: Text(
-                    'Re-read',
+                    'إعادة القراءة',
                     style: AppTheme.text(
                       size: 11,
                       weight: FontWeight.w700,

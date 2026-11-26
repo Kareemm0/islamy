@@ -48,7 +48,7 @@ class HomeReflectionBanner extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'RAMADAN REFLECTION',
+                        'تأملات قرآنية',
                         style: AppTheme.text(
                           size: 11,
                           weight: FontWeight.w600,
@@ -59,7 +59,7 @@ class HomeReflectionBanner extends StatelessWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        '"The best of you are those who learn the Quran and teach it."',
+                        '«خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ»',
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
                         style: AppTheme.text(

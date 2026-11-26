@@ -45,7 +45,7 @@ class HadithItemCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(9999),
                 ),
                 child: Text(
-                  '$bookName • #${item.number}',
+                  '$bookName • حديث رقم ${item.number}',
                   style: AppTheme.text(
                     size: 11,
                     weight: FontWeight.w700,
@@ -55,7 +55,7 @@ class HadithItemCard extends StatelessWidget {
               ),
               const Spacer(),
               IconButton(
-                tooltip: 'Copy hadith',
+                tooltip: 'نسخ الحديث',
                 visualDensity: VisualDensity.compact,
                 icon: const Icon(
                   Icons.copy_rounded,
@@ -64,11 +64,11 @@ class HadithItemCard extends StatelessWidget {
                 ),
                 onPressed: () {
                   Clipboard.setData(
-                    ClipboardData(text: '${item.arabic}\n\n${item.translation}'),
+                    ClipboardData(text: item.arabic),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('Hadith #${item.number} copied'),
+                      content: Text('تم نسخ الحديث رقم ${item.number}'),
                     ),
                   );
                 },
@@ -97,17 +97,6 @@ class HadithItemCard extends StatelessWidget {
               ),
             ),
           ),
-          if (item.translation.isNotEmpty) ...[
-            const SizedBox(height: 12),
-            Text(
-              item.translation,
-              style: AppTheme.text(
-                size: 13.5,
-                color: AppColors.onSurfaceVariant,
-                height: 21,
-              ),
-            ),
-          ],
         ],
       ),
     );

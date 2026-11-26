@@ -40,6 +40,7 @@ class QuranBody extends StatelessWidget {
                       : () => context.pushNamed(
                             Routes.surahDetailsName,
                             pathParameters: {'id': '${bookmark.surahNumber}'},
+                            queryParameters: {'page': '${bookmark.page}'},
                           ),
                 ),
               ),
@@ -49,7 +50,7 @@ class QuranBody extends StatelessWidget {
                 QuranStatus.loading => const [QuranSurahListShimmer()],
                 QuranStatus.failure => [
                   QuranErrorView(
-                    message: state.errorMessage ?? 'Could not fetch surahs.',
+                    message: state.errorMessage ?? 'تعذر جلب السور.',
                     onRetry: cubit.loadSurahs,
                   ),
                 ],

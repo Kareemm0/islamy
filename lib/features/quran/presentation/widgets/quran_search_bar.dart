@@ -36,7 +36,7 @@ class QuranSearchBar extends StatelessWidget {
               decoration: InputDecoration(
                 border: InputBorder.none,
                 isCollapsed: true,
-                hintText: 'Search Surah, Ayah, or number... (ابحث عن سورة)',
+                hintText: 'ابحث عن سورة أو رقمها...',
                 hintMaxLines: 1,
                 hintStyle: AppTheme.text(size: 15, color: AppColors.outline),
               ),

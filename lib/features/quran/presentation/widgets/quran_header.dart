@@ -27,7 +27,7 @@ class QuranHeader extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Quran',
+                  'القرآن الكريم',
                   style: AppTheme.text(
                     size: 11,
                     weight: FontWeight.w600,

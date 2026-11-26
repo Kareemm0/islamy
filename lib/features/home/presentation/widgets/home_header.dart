@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:islamy/core/theme/app_theme.dart';
 
 import '../cubit/home_state.dart';
-import 'home_header_icon_button.dart';
-import 'home_style.dart';
 import 'home_svg.dart';
 
 /// Top bar (logo/title + actions) followed by date chips and greeting.
@@ -36,7 +34,7 @@ class HomeHeader extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'Home',
+                    'الرئيسية',
                     style: AppTheme.text(
                       size: 11,
                       weight: FontWeight.w600,
@@ -47,32 +45,6 @@ class HomeHeader extends StatelessWidget {
                   ),
                 ],
               ),
-              const Spacer(),
-              const HomeHeaderIconButton(
-                child: HomeSvg('icon_header_search', width: 16.5, height: 16.5),
-              ),
-              const HomeHeaderIconButton(
-                child: HomeSvg(
-                  'icon_header_notifications',
-                  width: 14.667,
-                  height: 18.333,
-                ),
-              ),
-              const SizedBox(width: 4),
-              Container(
-                width: 32,
-                height: 32,
-                alignment: Alignment.center,
-                decoration: const BoxDecoration(
-                  color: AppColors.primary,
-                  shape: BoxShape.circle,
-                ),
-                child: const HomeSvg(
-                  'icon_header_profile',
-                  width: 12,
-                  height: 12,
-                ),
-              ),
             ],
           ),
         ),
@@ -80,68 +52,20 @@ class HomeHeader extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Flexible(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Flexible(
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColors.goldContainer,
-                        borderRadius: BorderRadius.circular(9999),
-                        boxShadow: HomeStyle.cardShadow,
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const HomeSvg(
-                            'icon_hijri_star',
-                            width: 11.667,
-                            height: 11.083,
-                          ),
-                          const SizedBox(width: 4),
-                          Flexible(
-                            child: Text(
-                              state.hijriDateEn,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: AppTheme.text(
-                                size: 11,
-                                weight: FontWeight.w600,
-                                color: const Color(0xFF241A00),
-                                height: 16,
-                                letterSpacing: 0.44,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 4),
-                  Flexible(
-                    child: Text(
-                      state.hijriDateAr,
-                      textDirection: TextDirection.rtl,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: AppTheme.text(
-                        size: 11,
-                        weight: FontWeight.w600,
-                        color: AppColors.gold,
-                        height: 16,
-                        letterSpacing: 0.44,
-                      ),
-                    ),
-                  ),
-                ],
+            Text(
+              state.hijriDateAr,
+              textDirection: TextDirection.rtl,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: AppTheme.text(
+                size: 11,
+                weight: FontWeight.w600,
+                color: AppColors.gold,
+                height: 16,
+                letterSpacing: 0.44,
               ),
             ),
-            const SizedBox(width: 8),
+
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
               decoration: BoxDecoration(
@@ -163,15 +87,6 @@ class HomeHeader extends StatelessWidget {
                       letterSpacing: 0.44,
                     ),
                   ),
-                  const SizedBox(width: 6),
-                  Container(
-                    width: 6,
-                    height: 6,
-                    decoration: const BoxDecoration(
-                      color: AppColors.primaryContainer,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -188,9 +103,9 @@ class HomeHeader extends StatelessWidget {
         ),
         FittedBox(
           fit: BoxFit.scaleDown,
-          alignment: Alignment.centerLeft,
+          alignment: Alignment.centerRight,
           child: Text(
-            'Assalamu Alaikum,',
+            'السلام عليكم،',
             style: AppTheme.text(
               size: 26,
               weight: FontWeight.w700,

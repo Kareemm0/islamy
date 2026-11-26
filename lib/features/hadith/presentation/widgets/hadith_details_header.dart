@@ -81,7 +81,7 @@ class HadithDetailsHeader extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '$total Total Hadiths • Page $currentPage of $totalPages',
+                      '$total حديث • صفحة $currentPage من $totalPages',
                       style: AppTheme.text(
                         size: 12,
                         color: AppColors.mintSoft,
@@ -101,7 +101,7 @@ class HadithDetailsHeader extends StatelessWidget {
                   borderRadius: BorderRadius.circular(9999),
                 ),
                 child: Text(
-                  slug.toUpperCase(),
+                  bookName,
                   style: AppTheme.text(
                     size: 10,
                     weight: FontWeight.w700,

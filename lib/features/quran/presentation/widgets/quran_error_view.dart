@@ -25,7 +25,7 @@ class QuranErrorView extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           Text(
-            'Unable to load Quran data',
+            'تعذر تحميل بيانات القرآن',
             textAlign: TextAlign.center,
             style: AppTheme.text(
               size: 16,
@@ -55,7 +55,7 @@ class QuranErrorView extends StatelessWidget {
             ),
             icon: const Icon(Icons.refresh_rounded, size: 18),
             label: Text(
-              'Try Again',
+              'إعادة المحاولة',
               style: AppTheme.text(
                 size: 13,
                 weight: FontWeight.w600,

@@ -20,7 +20,7 @@ class HomePrayerCountdownRow extends StatelessWidget {
     final hour = int.tryParse(parts.first) ?? 0;
     final minute = parts.length > 1 ? parts[1] : '00';
     final displayHour = hour % 12 == 0 ? 12 : hour % 12;
-    final period = hour < 12 ? 'AM' : 'PM';
+    final period = hour < 12 ? 'ص' : 'م';
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
@@ -28,35 +28,19 @@ class HomePrayerCountdownRow extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Wrap(
-                spacing: 8,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: [
-                  Text(
-                    nextPrayer.name.toUpperCase(),
-                    style: AppTheme.text(
-                      size: 32,
-                      weight: FontWeight.w700,
-                      color: Colors.white,
-                      height: 40,
-                      letterSpacing: -0.8,
-                    ),
-                  ),
-                  Text(
-                    nextPrayer.arabicName,
-                    textDirection: TextDirection.rtl,
-                    style: AppTheme.arabic(
-                      size: 24,
-                      weight: FontWeight.w700,
-                      color: AppColors.goldLight,
-                      height: 32,
-                    ),
-                  ),
-                ],
+              Text(
+                nextPrayer.arabicName,
+                textDirection: TextDirection.rtl,
+                style: AppTheme.arabic(
+                  size: 30,
+                  weight: FontWeight.w700,
+                  color: Colors.white,
+                  height: 38,
+                ),
               ),
               const SizedBox(height: 2),
               Text(
-                'Scheduled at $displayHour:$minute $period',
+                'موعدها الساعة $displayHour:$minute $period',
                 style: AppTheme.text(
                   size: 13,
                   color: AppColors.mintSoft,
@@ -71,7 +55,7 @@ class HomePrayerCountdownRow extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              'REMAINING',
+              'المتبقي',
               style: AppTheme.text(
                 size: 11,
                 weight: FontWeight.w600,

@@ -31,7 +31,7 @@ class AzkarBadgeChip extends StatelessWidget {
           ),
           const SizedBox(width: 4),
           Text(
-            isProtection ? 'Protection' : 'Great Reward',
+            isProtection ? 'حفظ ووقاية' : 'أجر عظيم',
             style: AppTheme.text(
               size: 11,
               weight: FontWeight.w700,

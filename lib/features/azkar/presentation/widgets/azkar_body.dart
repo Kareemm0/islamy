@@ -68,7 +68,7 @@ class AzkarBody extends StatelessWidget {
                       AzkarStatus.initial ||
                       AzkarStatus.loading => const AzkarListShimmer(),
                       AzkarStatus.failure => AzkarErrorView(
-                        message: state.errorMessage ?? 'Could not load azkar.',
+                        message: state.errorMessage ?? 'تعذر تحميل الأذكار.',
                         onRetry: cubit.loadAzkar,
                       ),
                       AzkarStatus.success => switch (items.isEmpty) {
@@ -79,7 +79,7 @@ class AzkarBody extends StatelessWidget {
                           ),
                           child: Center(
                             child: Text(
-                              'No adhkar match your search.',
+                              'لا توجد أذكار مطابقة لبحثك.',
                               style: AppTheme.text(
                                 size: 14,
                                 color: AppColors.onSurfaceVariant,

@@ -12,7 +12,7 @@ class SettingsPage extends StatelessWidget {
       color: AppColors.background,
       child: Center(
         child: Text(
-          'Settings',
+          'الإعدادات',
           style: AppTheme.text(
             size: 18,
             weight: FontWeight.w600,

@@ -68,7 +68,7 @@ class HadithDetailsBody extends StatelessWidget {
           ),
           body: Center(
             child: HadithErrorView(
-              message: state.errorMessage ?? 'Could not load hadiths.',
+              message: state.errorMessage ?? 'تعذر تحميل الأحاديث.',
               onRetry: cubit.retry,
             ),
           ),
@@ -135,7 +135,7 @@ class HadithDetailsBody extends StatelessWidget {
                               ),
                               icon: const Icon(Icons.expand_more_rounded),
                               label: Text(
-                                'Load Next Page (${state.currentPage + 1} / ${state.totalPages})',
+                                'تحميل الصفحة التالية (${state.currentPage + 1} / ${state.totalPages})',
                                 style: AppTheme.text(
                                   size: 13,
                                   weight: FontWeight.w700,

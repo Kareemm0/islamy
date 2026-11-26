@@ -10,7 +10,7 @@ class QuranEmptyState extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 32),
       child: Center(
         child: Text(
-          'No surahs found',
+          'لم يتم العثور على سور',
           style: AppTheme.text(
             size: 13,
             color: AppColors.onSurfaceVariant,

@@ -42,7 +42,7 @@ class AzkarProgressCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'DEVOTION PROGRESS',
+                      'تقدم الورد اليومي',
                       style: AppTheme.text(
                         size: 11,
                         weight: FontWeight.w700,
@@ -56,7 +56,7 @@ class AzkarProgressCard extends StatelessWidget {
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: '${state.recitedCount} of ${state.totalCount}',
+                            text: '${state.recitedCount} من ${state.totalCount}',
                             style: AppTheme.text(
                               size: 20,
                               weight: FontWeight.w700,
@@ -64,7 +64,7 @@ class AzkarProgressCard extends StatelessWidget {
                             ),
                           ),
                           TextSpan(
-                            text: '  recited (${state.percent}%)',
+                            text: '  تمت قراءتها (${state.percent}%)',
                             style: AppTheme.text(
                               size: 13,
                               color: AppColors.onSurfaceVariant,
@@ -123,7 +123,7 @@ class AzkarProgressCard extends StatelessWidget {
                             ),
                       const SizedBox(width: 6),
                       Text(
-                        state.playingAll ? 'Pause' : 'Play All',
+                        state.playingAll ? 'إيقاف مؤقت' : 'تشغيل الكل',
                         style: AppTheme.text(
                           size: 11,
                           weight: FontWeight.w700,
@@ -177,7 +177,7 @@ class AzkarProgressCard extends StatelessWidget {
               const SizedBox(width: 4),
               Expanded(
                 child: Text(
-                  '${state.remainingCount} Adhkar Remaining',
+                  'تبقى ${state.remainingCount} أذكار',
                   style: AppTheme.text(
                     size: 11,
                     weight: FontWeight.w500,
@@ -188,7 +188,7 @@ class AzkarProgressCard extends StatelessWidget {
                 ),
               ),
               Text(
-                'Estimated: ~${state.estimatedMinutes} min',
+                'الوقت المقدر: ~${state.estimatedMinutes} دقيقة',
                 style: AppTheme.text(
                   size: 11,
                   weight: FontWeight.w600,

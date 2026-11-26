@@ -24,13 +24,13 @@ class HomeShortcuts extends StatelessWidget {
       iconBg: AppColors.mint,
       icon: const HomeSvg('icon_shortcut_quran', width: 20.167, height: 14.667),
       trailing: HomeShortcutTrailing(
-        'Ayah ${state.lastReadAyah}',
+        'آية ${state.lastReadAyah}',
         AppColors.gold,
         FontWeight.w700,
         pill: false,
       ),
-      title: state.lastReadSurah,
-      subtitle: '${state.lastReadSurahAr} • Page ${state.lastReadPage}',
+      title: state.lastReadSurahAr,
+      subtitle: 'صفحة ${state.lastReadPage}',
       footer: ClipRRect(
         borderRadius: BorderRadius.circular(9999),
         child: LinearProgressIndicator(
@@ -49,16 +49,16 @@ class HomeShortcuts extends StatelessWidget {
         height: 18.301,
       ),
       trailing: HomeShortcutTrailing(
-        '${state.tasbihCount}x',
+        '${state.tasbihCount}',
         AppColors.primary,
         FontWeight.w600,
         pill: true,
         pillColor: AppColors.surfaceLow,
       ),
-      title: 'Electronic Tasbih',
-      subtitle: 'المسبحة الإلكترونية',
+      title: 'المسبحة الإلكترونية',
+      subtitle: 'سبّح بحمد ربك',
       footer: const HomeShortcutFooterText(
-        text: 'Tap to recite',
+        text: 'اضغط للتسبيح',
         color: AppColors.gold,
       ),
       onTap: onIncrementTasbih,
@@ -73,10 +73,10 @@ class HomeShortcuts extends StatelessWidget {
         pill: true,
         pillColor: AppColors.mint,
       ),
-      title: 'Qibla Direction',
+      title: 'اتجاه القبلة',
       subtitle: 'بوصلة اتجاه القبلة',
       footer: const HomeShortcutFooterText(
-        text: 'Calibrated',
+        text: 'مُعايرة',
         color: Color(0xFF00422E),
       ),
     );
@@ -84,15 +84,15 @@ class HomeShortcuts extends StatelessWidget {
       iconBg: AppColors.surfaceContainer,
       icon: const HomeSvg('icon_shortcut_hadith', width: 20.167, height: 17.875),
       trailing: const HomeShortcutTrailing(
-        'Bukhari',
+        'البخاري',
         AppColors.onSurfaceVariant,
         FontWeight.w500,
         pill: false,
       ),
-      title: 'Hadith Library',
+      title: 'مكتبة الحديث',
       subtitle: 'رياض الصالحين والسنن',
       footer: const HomeShortcutFooterText(
-        text: 'Daily selection',
+        text: 'مختارات يومية',
         color: AppColors.gold,
       ),
     );
@@ -105,7 +105,7 @@ class HomeShortcuts extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                'Quick Essentials',
+                'وصول سريع',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: AppTheme.text(
@@ -113,18 +113,6 @@ class HomeShortcuts extends StatelessWidget {
                   weight: FontWeight.w700,
                   height: 28,
                 ),
-              ),
-            ),
-            const SizedBox(width: 8),
-            Text(
-              'وصول سريع',
-              textDirection: TextDirection.rtl,
-              style: AppTheme.text(
-                size: 11,
-                weight: FontWeight.w600,
-                color: AppColors.gold,
-                height: 16,
-                letterSpacing: 0.44,
               ),
             ),
           ],

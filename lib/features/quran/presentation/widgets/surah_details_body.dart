@@ -12,15 +12,46 @@ import 'surah_details_header.dart';
 import 'surah_details_shimmer.dart';
 import 'surah_mushaf_page_card.dart';
 
-class SurahDetailsBody extends StatelessWidget {
+class SurahDetailsBody extends StatefulWidget {
   const SurahDetailsBody({
     super.key,
     required this.surahId,
     required this.state,
+    this.initialPage,
   });
 
   final int surahId;
   final SurahDetailsState state;
+  final int? initialPage;
+
+  @override
+  State<SurahDetailsBody> createState() => _SurahDetailsBodyState();
+}
+
+class _SurahDetailsBodyState extends State<SurahDetailsBody> {
+  final Map<int, GlobalKey> _pageKeys = {};
+  bool _hasScrolledToInitialPage = false;
+
+  GlobalKey _keyForPage(int pageNumber) =>
+      _pageKeys.putIfAbsent(pageNumber, GlobalKey.new);
+
+  void _maybeScrollToInitialPage() {
+    final target = widget.initialPage;
+    if (_hasScrolledToInitialPage || target == null) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || _hasScrolledToInitialPage) return;
+      final ctx = _pageKeys[target]?.currentContext;
+      if (ctx != null) {
+        _hasScrolledToInitialPage = true;
+        Scrollable.ensureVisible(
+          ctx,
+          duration: const Duration(milliseconds: 350),
+          curve: Curves.easeOutCubic,
+          alignment: 0.04,
+        );
+      }
+    });
+  }
 
   List<List<QuranAyah>> _groupByPage(List<QuranAyah> ayahs) {
     final pages = <List<QuranAyah>>[];
@@ -37,7 +68,7 @@ class SurahDetailsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<SurahDetailsCubit>();
-    return switch (state) {
+    return switch (widget.state) {
       SurahDetailsInitial() || SurahDetailsLoading() => Scaffold(
           backgroundColor: AppColors.background,
           appBar: AppBar(
@@ -51,7 +82,7 @@ class SurahDetailsBody extends StatelessWidget {
               onPressed: () => context.pop(),
             ),
             title: Text(
-              'Surah $surahId',
+              'سورة رقم ${widget.surahId}',
               style: AppTheme.text(
                 size: 16,
                 weight: FontWeight.w700,
@@ -77,17 +108,19 @@ class SurahDetailsBody extends StatelessWidget {
           body: Center(
             child: QuranErrorView(
               message: message,
-              onRetry: () => cubit.loadSurah(surahId),
+              onRetry: () => cubit.loadSurah(widget.surahId),
             ),
           ),
         ),
       SurahDetailsSuccess(:final details) => () {
           final pages = _groupByPage(details.ayahs);
+          _maybeScrollToInitialPage();
           return Scaffold(
             backgroundColor: AppColors.background,
             body: SafeArea(
               bottom: false,
               child: CustomScrollView(
+                cacheExtent: 100000,
                 slivers: [
                   SliverToBoxAdapter(
                     child: SurahDetailsHeader(surah: details.surah),
@@ -101,9 +134,11 @@ class SurahDetailsBody extends StatelessWidget {
                       separatorBuilder: (_, _) => const SizedBox(height: 16),
                       itemBuilder: (context, index) {
                         final pageAyahs = pages[index];
+                        final pageNum = pageAyahs.first.page;
                         return SurahMushafPageCard(
+                          key: _keyForPage(pageNum),
                           surahNumber: details.surah.number,
-                          pageNumber: pageAyahs.first.page,
+                          pageNumber: pageNum,
                           juzNumber: pageAyahs.first.juz,
                           ayahs: pageAyahs,
                           surah: details.surah,

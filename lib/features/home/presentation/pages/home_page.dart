@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:islamy/core/router/routes.dart';
 import 'package:islamy/core/theme/app_theme.dart';
 
+import '../../domain/entities/home_azkar_period.dart';
 import '../cubit/home_cubit.dart';
 import '../cubit/home_state.dart';
 import '../widgets/home_azkar_card.dart';
@@ -42,7 +45,14 @@ class HomePage extends StatelessWidget {
                     HomeAzkarCard(
                       state: state,
                       onSelectPeriod: cubit.selectPeriod,
-                      onStartReading: cubit.startReadingAzkar,
+                      onStartReading: () => context.goNamed(
+                        Routes.azkarName,
+                        queryParameters: {
+                          'category': state.period == HomeAzkarPeriod.morning
+                              ? 'morning'
+                              : 'evening',
+                        },
+                      ),
                     ),
                     const SizedBox(height: 20),
                     HomeShortcuts(

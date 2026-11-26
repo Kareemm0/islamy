@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:islamy/core/theme/app_theme.dart';
 
-import 'azkar_header_button.dart';
-import 'azkar_icon.dart';
 import 'azkar_style.dart';
 
 /// Top app bar of the screen (brand + search / notifications / profile).
@@ -52,7 +50,7 @@ class AzkarHeader extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Azkar',
+                      'الأذكار',
                       style: AppTheme.text(
                         size: 11,
                         weight: FontWeight.w600,
@@ -62,39 +60,6 @@ class AzkarHeader extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),
-                const Spacer(),
-                AzkarHeaderButton(
-                  tooltip: 'Search',
-                  onTap: onToggleSearch,
-                  child: searching
-                      ? const Icon(
-                          Icons.close,
-                          size: 18,
-                          color: AppColors.onSurfaceVariant,
-                        )
-                      : const AzkarIcon(AzkarAssets.headerSearch, width: 16.5),
-                ),
-                const SizedBox(width: 4),
-                AzkarHeaderButton(
-                  tooltip: 'Notifications',
-                  onTap: () {},
-                  child: const AzkarIcon(
-                    AzkarAssets.headerBell,
-                    width: 14.667,
-                    height: 18.333,
-                  ),
-                ),
-                const SizedBox(width: 4),
-                Container(
-                  width: 32,
-                  height: 32,
-                  decoration: const BoxDecoration(
-                    color: AppColors.primary,
-                    shape: BoxShape.circle,
-                  ),
-                  alignment: Alignment.center,
-                  child: const AzkarIcon(AzkarAssets.headerPerson, width: 12),
                 ),
               ],
             ),

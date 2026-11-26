@@ -91,7 +91,9 @@ class HadithDetailsCubit extends Cubit<HadithDetailsState> {
       (pageData) => emit(
         state.copyWith(
           status: HadithDetailsStatus.success,
-          bookName: pageData.name.isEmpty ? state.bookName : pageData.name,
+          bookName: state.bookName.isNotEmpty
+              ? state.bookName
+              : pageData.name,
           total: pageData.total,
           items: append
               ? List.unmodifiable([...state.items, ...pageData.items])

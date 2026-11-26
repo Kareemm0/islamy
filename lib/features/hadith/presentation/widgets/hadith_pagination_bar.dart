@@ -41,7 +41,7 @@ class HadithPaginationBar extends StatelessWidget {
           Row(
             children: [
               IconButton(
-                tooltip: 'Previous page',
+                tooltip: 'الصفحة السابقة',
                 visualDensity: VisualDensity.compact,
                 onPressed:
                     hasPrevious ? () => onSelectPage(currentPage - 1) : null,
@@ -85,7 +85,7 @@ class HadithPaginationBar extends StatelessWidget {
                 ),
               ),
               IconButton(
-                tooltip: 'Next page',
+                tooltip: 'الصفحة التالية',
                 visualDensity: VisualDensity.compact,
                 onPressed: hasNext ? () => onSelectPage(currentPage + 1) : null,
                 icon: const Icon(Icons.chevron_right_rounded),
@@ -97,7 +97,7 @@ class HadithPaginationBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Page $currentPage of $totalPages',
+                'صفحة $currentPage من $totalPages',
                 style: AppTheme.text(
                   size: 11,
                   weight: FontWeight.w600,
@@ -109,7 +109,7 @@ class HadithPaginationBar extends StatelessWidget {
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
                   Text(
-                    'Per page:',
+                    'في الصفحة:',
                     style: AppTheme.text(
                       size: 11,
                       color: AppColors.onSurfaceVariant,

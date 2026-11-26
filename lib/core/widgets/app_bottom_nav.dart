@@ -14,11 +14,11 @@ class AppBottomNav extends StatelessWidget {
   final ValueChanged<int> onSelected;
 
   static const _items = [
-    (Icons.home_rounded, Icons.home_outlined, 'Home'),
-    (Icons.menu_book_rounded, Icons.menu_book_outlined, 'Quran'),
-    (Icons.auto_awesome_rounded, Icons.auto_awesome_outlined, 'Azkar'),
-    (Icons.format_quote_rounded, Icons.format_quote_outlined, 'Hadith'),
-    (Icons.settings_rounded, Icons.settings_outlined, 'Settings'),
+    (Icons.home_rounded, Icons.home_outlined, 'الرئيسية'),
+    (Icons.menu_book_rounded, Icons.menu_book_outlined, 'القرآن'),
+    (Icons.auto_awesome_rounded, Icons.auto_awesome_outlined, 'الأذكار'),
+    (Icons.format_quote_rounded, Icons.format_quote_outlined, 'الحديث'),
+    (Icons.settings_rounded, Icons.settings_outlined, 'الإعدادات'),
   ];
 
   @override

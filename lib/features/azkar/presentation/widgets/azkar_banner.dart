@@ -64,7 +64,7 @@ class AzkarBanner extends StatelessWidget {
                         ),
                         const SizedBox(width: 6),
                         Text(
-                          'SPIRITUAL SANCTUARY',
+                          'واحة الذكر',
                           style: AppTheme.text(
                             size: 11,
                             weight: FontWeight.w600,

@@ -23,27 +23,27 @@ class HadithPage extends StatelessWidget {
     _snack(
       context,
       cubit.state.sahihOnly
-          ? 'Showing Sahih collections only'
-          : 'Showing all collections',
+          ? 'عرض كتب الصحيح فقط'
+          : 'عرض جميع المجموعات الحديثية',
     );
   }
 
   void _handleCopy(BuildContext context) {
     final cubit = context.read<HadithCubit>();
     final h = cubit.state.hadithOfDay;
-    Clipboard.setData(ClipboardData(text: '${h.arabic}\n${h.translation}'));
+    Clipboard.setData(ClipboardData(text: h.arabic));
     cubit.registerCopy();
-    _snack(context, 'Hadith copied');
+    _snack(context, 'تم نسخ الحديث');
   }
 
   void _handleSave(BuildContext context) {
     final cubit = context.read<HadithCubit>();
     cubit.toggleSaved();
-    _snack(context, cubit.state.saved ? 'Hadith saved' : 'Removed');
+    _snack(context, cubit.state.saved ? 'تم حفظ الحديث' : 'تمت الإزالة');
   }
 
   void _handleShare(BuildContext context) =>
-      _snack(context, 'Sharing is not available yet');
+      _snack(context, 'المشاركة غير متاحة حاليًا');
 
   @override
   Widget build(BuildContext context) {

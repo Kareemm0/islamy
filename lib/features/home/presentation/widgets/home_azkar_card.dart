@@ -70,7 +70,7 @@ class HomeAzkarCard extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           HomeAzkarSegment(
-                            label: 'Morning',
+                            label: 'الصباح',
                             selected: morning,
                             icon: const HomeSvg(
                               'icon_morning',
@@ -81,7 +81,7 @@ class HomeAzkarCard extends StatelessWidget {
                                 onSelectPeriod(HomeAzkarPeriod.morning),
                           ),
                           HomeAzkarSegment(
-                            label: 'Evening',
+                            label: 'المساء',
                             selected: !morning,
                             icon: const HomeSvg(
                               'icon_evening',
@@ -172,7 +172,7 @@ class HomeAzkarCard extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 12),
                                 Text(
-                                  '${state.azkarDone} / ${c.total} Done',
+                                  '${state.azkarDone} / ${c.total} مكتمل',
                                   style: AppTheme.text(
                                     size: 11,
                                     weight: FontWeight.w700,
@@ -231,8 +231,14 @@ class HomeAzkarCard extends StatelessWidget {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
+                            const HomeSvg(
+                              'icon_start_reading_arrow',
+                              width: 10.667,
+                              height: 10.667,
+                            ),
+                            const SizedBox(width: 6),
                             Text(
-                              'Start Reading (ابدأ\nالآن)',
+                              'ابدأ القراءة',
                               textAlign: TextAlign.center,
                               style: AppTheme.text(
                                 size: 13,
@@ -241,12 +247,6 @@ class HomeAzkarCard extends StatelessWidget {
                                 height: 18,
                                 letterSpacing: 0.26,
                               ),
-                            ),
-                            const SizedBox(width: 6),
-                            const HomeSvg(
-                              'icon_start_reading_arrow',
-                              width: 10.667,
-                              height: 10.667,
                             ),
                           ],
                         ),

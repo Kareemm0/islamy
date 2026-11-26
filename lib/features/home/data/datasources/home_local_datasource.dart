@@ -10,38 +10,38 @@ class HomeLocalDatasource {
 
   static const _morningAzkar = HomeAzkarContent(
     arabicTitle: 'أذكار الصباح',
-    englishTitle: '(Morning Adhkar)',
+    englishTitle: '',
     lines: [
-      'Start your day in divine remembrance •',
-      'Protection, light, and serenity.',
+      'ابدأ يومك بذكر الله •',
+      'حفظ ونور وسكينة.',
     ],
-    recommendation: 'Recommended after\nFajr',
+    recommendation: 'يُستحب بعد\nصلاة الفجر',
     total: 24,
   );
 
   static const _eveningAzkar = HomeAzkarContent(
     arabicTitle: 'أذكار المساء',
-    englishTitle: '(Evening Adhkar)',
+    englishTitle: '',
     lines: [
-      'Close your day in divine remembrance •',
-      'Peace, forgiveness, and gratitude.',
+      'اختم يومك بذكر الله •',
+      'طمأنينة ومغفرة وشكر.',
     ],
-    recommendation: 'Recommended after\nAsr',
+    recommendation: 'يُستحب بعد\nصلاة العصر',
     total: 24,
   );
 
   HomeDashboardData getDashboardData() {
     return const HomeDashboardData(
-      hijriDateEn: '14 Ramadan 1446 AH',
+      hijriDateEn: '١٤ رمضان ١٤٤٦ هـ',
       hijriDateAr: '١٤ رمضان ١٤٤٦ هـ',
-      gregorianDate: 'Friday, March 14, 2025',
-      location: 'Cairo, Egypt',
+      gregorianDate: 'الجمعة، ١٤ مارس ٢٠٢٥',
+      location: 'القاهرة، مصر',
       prayers: [
-        HomePrayer(name: 'Fajr', arabicName: 'الفجر', time: '04:42'),
-        HomePrayer(name: 'Dhuhr', arabicName: 'الظهر', time: '12:04'),
-        HomePrayer(name: 'Asr', arabicName: 'العصر', time: '03:28'),
-        HomePrayer(name: 'Maghrib', arabicName: 'المغرب', time: '06:05'),
-        HomePrayer(name: 'Isha', arabicName: 'العشاء', time: '07:22'),
+        HomePrayer(name: 'الفجر', arabicName: 'الفجر', time: '04:42'),
+        HomePrayer(name: 'الظهر', arabicName: 'الظهر', time: '12:04'),
+        HomePrayer(name: 'العصر', arabicName: 'العصر', time: '03:28'),
+        HomePrayer(name: 'المغرب', arabicName: 'المغرب', time: '06:05'),
+        HomePrayer(name: 'العشاء', arabicName: 'العشاء', time: '07:22'),
       ],
       nextPrayerIndex: 2,
       qiblaDegrees: 136,
@@ -53,7 +53,7 @@ class HomeLocalDatasource {
         HomeAzkarPeriod.morning: 6,
         HomeAzkarPeriod.evening: 0,
       },
-      lastReadSurah: 'Surah Al-Kahf',
+      lastReadSurah: 'سورة الكهف',
       lastReadSurahAr: 'سورة الكهف',
       lastReadPage: 297,
       lastReadAyah: 28,
@@ -65,12 +65,9 @@ class HomeLocalDatasource {
           'بِهِ طَرِيقًا إِلَى الْجَنَّةِ»',
         ],
         narrator: 'قال رسول الله ﷺ',
-        translationLines: [
-          '"Whoever takes a path upon which he seeks knowledge, Allah makes the '
-              'path to Paradise easy for him."',
-        ],
-        source: 'Sahih Muslim (صحيح مسلم: 2699)',
-        grade: 'Sahih (Authentic)',
+        translationLines: [],
+        source: 'صحيح مسلم: 2699',
+        grade: 'صحيح',
       ),
       initialHadithBookmarked: false,
       pagesGoal: 8,

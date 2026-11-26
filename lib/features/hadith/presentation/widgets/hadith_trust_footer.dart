@@ -41,7 +41,7 @@ class HadithTrustFooter extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            'Over 34,000+ Verified Traditions',
+            'أكثر من 34,000+ حديث نبوي موثق',
             textAlign: TextAlign.center,
             style: AppTheme.text(
               size: 15,
@@ -55,8 +55,7 @@ class HadithTrustFooter extends StatelessWidget {
           ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 320),
             child: Text(
-              'Complete with word-by-word English translations, scholarly '
-              'commentary, and full Arabic Isnad (سند).',
+              'مكتملة بالنص العربي المشكول، وأحكام العلماء، والسند الكامل.',
               textAlign: TextAlign.center,
               style: AppTheme.text(
                 size: 13,
@@ -81,7 +80,7 @@ class HadithTrustFooter extends StatelessWidget {
                     height: 11.7,
                   ),
                   const SizedBox(width: 4),
-                  Text('Authentic Chains', style: gold),
+                  Text('أسانيد موثقة', style: gold),
                 ],
               ),
               Opacity(opacity: 0.4, child: Text('•', style: gold)),
@@ -94,7 +93,7 @@ class HadithTrustFooter extends StatelessWidget {
                     height: 9.3,
                   ),
                   const SizedBox(width: 4),
-                  Text('Scholarly Gradings', style: gold),
+                  Text('تحقيقات العلماء', style: gold),
                 ],
               ),
             ],

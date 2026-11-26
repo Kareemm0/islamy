@@ -2,10 +2,10 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:islamy/core/theme/app_theme.dart';
+import 'package:islamy/features/azkar/presentation/widgets/azkar_icon.dart';
 
 import '../../domain/entities/azkar_item.dart';
 import 'azkar_circle_action.dart';
-import 'azkar_icon.dart';
 import 'azkar_style.dart';
 
 class AzkarMultiRepFooter extends StatelessWidget {
@@ -25,11 +25,11 @@ class AzkarMultiRepFooter extends StatelessWidget {
       children: [
         AzkarCircleAction(
           size: 40,
-          tooltip: 'Virtue info',
+          tooltip: 'فضل الذكر',
           onTap: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Source: ${item.source}')),
-            );
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text('المصدر: ${item.source}')));
           },
           child: const AzkarIcon(AzkarAssets.actionInfo, width: 18.333),
         ),
@@ -39,7 +39,7 @@ class AzkarMultiRepFooter extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Recommended',
+                'التكرار المستحب',
                 style: AppTheme.text(
                   size: 11,
                   weight: FontWeight.w600,
@@ -49,7 +49,7 @@ class AzkarMultiRepFooter extends StatelessWidget {
                 ),
               ),
               Text(
-                '${item.repetitions} Repetitions',
+                '${item.repetitions} مرات',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: AppTheme.text(
@@ -136,7 +136,7 @@ class AzkarMultiRepFooter extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
-                                  'Tap to count',
+                                  'اضغط للعد',
                                   style: AppTheme.text(
                                     size: 13,
                                     weight: FontWeight.w700,
@@ -155,7 +155,7 @@ class AzkarMultiRepFooter extends StatelessWidget {
                             ),
                             const SizedBox(height: 2),
                             Text(
-                              'Remaining: ${item.remaining} of ${item.repetitions}',
+                              'المتبقي: ${item.remaining} من ${item.repetitions}',
                               style: AppTheme.text(
                                 size: 11,
                                 weight: FontWeight.w600,

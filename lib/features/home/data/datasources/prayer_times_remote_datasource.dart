@@ -56,20 +56,20 @@ class PrayerTimesRemoteDataSource {
     String time(String key) => (timings[key] as String).split(' ').first;
 
     return PrayerTimesResult(
-      city: city,
+      city: city == 'Cairo' ? 'القاهرة' : city,
       prayers: [
-        HomePrayer(name: 'Fajr', arabicName: 'الفجر', time: time('Fajr')),
-        HomePrayer(name: 'Dhuhr', arabicName: 'الظهر', time: time('Dhuhr')),
-        HomePrayer(name: 'Asr', arabicName: 'العصر', time: time('Asr')),
+        HomePrayer(name: 'الفجر', arabicName: 'الفجر', time: time('Fajr')),
+        HomePrayer(name: 'الظهر', arabicName: 'الظهر', time: time('Dhuhr')),
+        HomePrayer(name: 'العصر', arabicName: 'العصر', time: time('Asr')),
         HomePrayer(
-          name: 'Maghrib',
+          name: 'المغرب',
           arabicName: 'المغرب',
           time: time('Maghrib'),
         ),
-        HomePrayer(name: 'Isha', arabicName: 'العشاء', time: time('Isha')),
+        HomePrayer(name: 'العشاء', arabicName: 'العشاء', time: time('Isha')),
       ],
       hijriDate:
-          '${hijri['day']} ${hijriMonth['en']} ${hijri['year']} ${hijri['designation']['abbreviated']}',
+          '${hijri['day']} ${hijriMonth['ar'] ?? hijriMonth['en']} ${hijri['year']} هـ',
       gregorianDate: gregorian['date'] as String,
     );
   }

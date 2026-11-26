@@ -70,7 +70,7 @@ class HadithSpotlightCard extends StatelessWidget {
                           const SizedBox(width: 6),
                           Flexible(
                             child: Text(
-                              'HADITH OF THE DAY',
+                              'حديث اليوم',
                               overflow: TextOverflow.ellipsis,
                               style: AppTheme.text(
                                 size: 11,
@@ -166,7 +166,7 @@ class HadithSpotlightCard extends StatelessWidget {
                               letterSpacing: 0.26,
                             ),
                             children: [
-                              const TextSpan(text: 'Narrated by '),
+                              const TextSpan(text: 'رواه '),
                               TextSpan(
                                 text: hadith.narrator,
                                 style: AppTheme.text(
@@ -240,7 +240,7 @@ class HadithSpotlightCard extends StatelessWidget {
                       asset: 'copy_hadith',
                       width: 28.75,
                       height: 37,
-                      tooltip: 'Copy hadith',
+                      tooltip: 'نسخ الحديث',
                       onTap: onCopy,
                     ),
                     const SizedBox(width: 4),
@@ -248,7 +248,7 @@ class HadithSpotlightCard extends StatelessWidget {
                       asset: 'save_hadith',
                       width: 26.5,
                       height: 35.5,
-                      tooltip: saved ? 'Unsave hadith' : 'Save hadith',
+                      tooltip: saved ? 'إلغاء حفظ الحديث' : 'حفظ الحديث',
                       onTap: onSave,
                       color: saved ? AppColors.gold : null,
                     ),
@@ -257,7 +257,7 @@ class HadithSpotlightCard extends StatelessWidget {
                       asset: 'share_hadith',
                       width: 29.5,
                       height: 37,
-                      tooltip: 'Share hadith',
+                      tooltip: 'مشاركة الحديث',
                       onTap: onShare,
                     ),
                   ],

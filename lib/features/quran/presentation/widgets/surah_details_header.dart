@@ -12,8 +12,8 @@ class SurahDetailsHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final revelation = surah.revelation == SurahRevelation.madani
-        ? 'Madani'
-        : 'Makki';
+        ? 'مدنية'
+        : 'مكية';
     return Container(
       margin: const EdgeInsets.fromLTRB(16, 12, 16, 16),
       padding: const EdgeInsets.all(18),
@@ -68,7 +68,7 @@ class SurahDetailsHeader extends StatelessWidget {
                   borderRadius: BorderRadius.circular(9999),
                 ),
                 child: Text(
-                  'Surah ${surah.number}',
+                  'سورة رقم ${surah.number}',
                   style: AppTheme.text(
                     size: 11,
                     weight: FontWeight.w700,
@@ -93,18 +93,7 @@ class SurahDetailsHeader extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            surah.name,
-            textAlign: TextAlign.center,
-            style: AppTheme.text(
-              size: 20,
-              weight: FontWeight.w700,
-              color: Colors.white,
-              height: 26,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            '${surah.meaning} • $revelation • ${surah.ayahCount} Ayahs',
+            '$revelation • ${surah.ayahCount} آية',
             textAlign: TextAlign.center,
             style: AppTheme.text(
               size: 13,

@@ -21,7 +21,7 @@ class QuranFridayBadge extends StatelessWidget {
           SvgPicture.asset(QuranAssets.fridayIcon, width: 11, height: 11),
           const SizedBox(width: 2),
           Text(
-            'Friday Sunnah',
+            'سنة الجمعة',
             style: AppTheme.text(
               size: 11,
               weight: FontWeight.w600,

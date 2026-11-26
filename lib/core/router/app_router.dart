@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 
+import '../../features/azkar/domain/entities/azkar_category.dart';
 import '../../features/azkar/presentation/pages/azkar_page.dart';
 import '../../features/hadith/presentation/pages/hadith_details_page.dart';
 import '../../features/hadith/presentation/pages/hadith_page.dart';
@@ -38,9 +39,14 @@ abstract final class AppRouter {
                   GoRoute(
                     path: Routes.surahDetails,
                     name: Routes.surahDetailsName,
-                    builder: (context, state) => SurahDetailsPage(
-                      surahId: int.parse(state.pathParameters['id']!),
-                    ),
+                    builder: (context, state) {
+                      final pageStr = state.uri.queryParameters['page'];
+                      return SurahDetailsPage(
+                        surahId: int.parse(state.pathParameters['id']!),
+                        initialPage:
+                            pageStr == null ? null : int.tryParse(pageStr),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -51,7 +57,13 @@ abstract final class AppRouter {
               GoRoute(
                 path: Routes.azkar,
                 name: Routes.azkarName,
-                builder: (context, state) => const AzkarPage(),
+                builder: (context, state) {
+                  final catName = state.uri.queryParameters['category'];
+                  final category = AzkarCategory.values
+                      .where((c) => c.name == catName)
+                      .firstOrNull;
+                  return AzkarPage(initialCategory: category);
+                },
               ),
             ],
           ),

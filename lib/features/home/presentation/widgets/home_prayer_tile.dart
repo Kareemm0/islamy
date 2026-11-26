@@ -24,7 +24,6 @@ class HomePrayerTile extends StatelessWidget {
     final active = state == HomePrayerTileState.active;
     final upcoming = state == HomePrayerTileState.upcoming;
     final nameColor = active ? const Color(0xFF745C00) : Colors.white;
-    final arabicColor = active ? const Color(0xFF745C00) : AppColors.mintSoft;
 
     final tile = Container(
       padding: const EdgeInsets.all(6),
@@ -55,26 +54,14 @@ class HomePrayerTile extends StatelessWidget {
         children: [
           HomePrayerTileIcon(state: state),
           const SizedBox(height: 4),
-          HomeScaledText(
-            text: prayer.name,
-            style: AppTheme.text(
-              size: 11,
-              weight: active
-                  ? FontWeight.w700
-                  : (upcoming ? FontWeight.w500 : FontWeight.w600),
-              color: nameColor,
-              height: 16,
-              letterSpacing: 0.44,
-            ),
-          ),
           Text(
             prayer.arabicName,
             textDirection: TextDirection.rtl,
             style: AppTheme.arabic(
-              size: 10,
-              weight: active ? FontWeight.w700 : FontWeight.w400,
-              color: arabicColor,
-              height: 15,
+              size: 11,
+              weight: active ? FontWeight.w700 : FontWeight.w600,
+              color: nameColor,
+              height: 16,
             ),
           ),
           const SizedBox(height: 3),

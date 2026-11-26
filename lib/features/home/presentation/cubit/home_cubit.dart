@@ -52,7 +52,7 @@ class HomeCubit extends Cubit<HomeState> {
       final data = state.data.copyWithPrayerData(
         hijriDateEn: result.hijriDate,
         gregorianDate: result.gregorianDate,
-        location: '${result.city}, Egypt',
+        location: '${result.city}، مصر',
         prayers: result.prayers,
         nextPrayerIndex: nextIndex,
         initialRemaining: target.difference(now),
@@ -79,14 +79,6 @@ class HomeCubit extends Cubit<HomeState> {
   void selectPeriod(HomeAzkarPeriod period) {
     if (period == state.period) return;
     emit(state.copyWith(period: period));
-  }
-
-  void startReadingAzkar() {
-    if (state.azkarDone < state.azkarContent.total) {
-      final updated = Map<HomeAzkarPeriod, int>.of(state.azkarDoneMap)
-        ..[state.period] = state.azkarDone + 1;
-      emit(state.copyWith(azkarDoneMap: updated));
-    }
   }
 
   void incrementTasbih() {

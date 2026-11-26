@@ -15,7 +15,7 @@ class AzkarSearchField extends StatelessWidget {
       onChanged: onChanged,
       style: AppTheme.text(size: 13),
       decoration: InputDecoration(
-        hintText: 'Search adhkar…',
+        hintText: 'ابحث في الأذكار…',
         hintStyle: AppTheme.text(
           size: 13,
           color: AzkarPalette.outlineVariant,

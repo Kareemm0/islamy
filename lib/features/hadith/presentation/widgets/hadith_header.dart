@@ -16,12 +16,11 @@ class HadithHeader extends StatelessWidget {
         children: [
           Expanded(
             child: Text(
-              'Islamy',
-              style: AppTheme.text(
+              'إسلامي',
+              style: AppTheme.arabic(
                 size: 22,
                 weight: FontWeight.w700,
                 color: AppColors.primary,
-                letterSpacing: -0.5,
               ),
             ),
           ),
@@ -29,7 +28,7 @@ class HadithHeader extends StatelessWidget {
             width: 44,
             height: 44,
             child: IconButton(
-              tooltip: 'Notifications',
+              tooltip: 'الإشعارات',
               onPressed: onNotificationsTap ?? () {},
               icon: const HadithSvgIcon(
                 name: 'notifications',

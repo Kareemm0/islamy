@@ -1,38 +1,38 @@
 enum AzkarCategory {
   morning(
-    'أذكار الصبح',
+    'أذكار الصباح',
     '(الصباح)',
     'أذكار الصباح',
-    'Morning Adhkar • أذكار الصبح',
-    'Begin your daylight with barakah, protection,\nand gratitude.',
+    'أذكار الصباح',
+    'ابدأ يومك بالبركة والحفظ والشكر لله.',
   ),
   evening(
     'أذكار المساء',
     '(المساء)',
     'أذكار المساء',
-    'Evening Adhkar • أذكار المساء',
-    'Close your day with remembrance, peace,\nand gratitude.',
+    'أذكار المساء',
+    'اختم يومك بذكر الله والطمأنينة والشكر.',
   ),
   sleep(
     'أذكار النوم',
     '(النوم)',
     'أذكار النوم',
-    'Sleep Adhkar • أذكار النوم',
-    'Rest in the protection of Allah and\npeaceful remembrance.',
+    'أذكار النوم',
+    'نم في حفظ الله ورعايته بذكره الحكيم.',
   ),
   wakeUp(
     'أذكار الاستيقاظ',
     '(الاستيقاظ)',
     'أذكار الاستيقاظ',
-    'Waking Up • أذكار الاستيقاظ',
-    'Awaken with thankfulness and praise\nto the Creator.',
+    'أذكار الاستيقاظ',
+    'استيقظ بحمد الله وشكره على نعمة الحياة.',
   ),
   prophetsDua(
-    'دعاء الأنبياء',
+    'أدعية الأنبياء',
     '(الأنبياء)',
     'أدعية الأنبياء',
-    'Prophets’ Duas • دعاء الأنبياء',
-    'Supplications of the Prophets from the\nNoble Quran.',
+    'أدعية الأنبياء',
+    'أدعية الأنبياء والمرسلين من القرآن الكريم.',
   );
 
   const AzkarCategory(

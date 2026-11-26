@@ -53,12 +53,13 @@ class HadithBookCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          book.name,
-                          style: AppTheme.text(
-                            size: 15,
+                          book.arabicName,
+                          textDirection: TextDirection.rtl,
+                          style: AppTheme.arabic(
+                            size: 18,
                             weight: FontWeight.w700,
-                            height: 20,
-                            letterSpacing: 0.15,
+                            color: AppColors.primary,
+                            height: 24,
                           ),
                         ),
                         Text(
@@ -72,18 +73,6 @@ class HadithBookCard extends StatelessWidget {
                           ),
                         ),
                       ],
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Text(
-                    book.arabicName,
-                    textAlign: TextAlign.right,
-                    textDirection: TextDirection.rtl,
-                    style: AppTheme.arabic(
-                      size: 20,
-                      weight: FontWeight.w700,
-                      color: AppColors.gold,
-                      height: 28,
                     ),
                   ),
                 ],
@@ -141,7 +130,7 @@ class HadithBookCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    '${book.hadithCount} Hadiths',
+                    '${book.hadithCount} حديث',
                     style: AppTheme.text(
                       size: 13,
                       weight: FontWeight.w600,
@@ -167,10 +156,10 @@ class HadithBookCard extends StatelessWidget {
 
   /// (background, text color, weight)
   (Color, Color, FontWeight) _tagStyle(String tag) {
-    if (tag.contains('Sahih')) {
+    if (tag.contains('صحيح')) {
       return (AppColors.mint, HadithPalette.sahihTagText, FontWeight.w500);
     }
-    if (tag.contains('Grading')) {
+    if (tag.contains('تقييم')) {
       return (
         AppColors.goldContainer,
         HadithPalette.gradingTagText,

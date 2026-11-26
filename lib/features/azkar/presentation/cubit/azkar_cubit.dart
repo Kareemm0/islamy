@@ -106,6 +106,6 @@ class AzkarCubit extends Cubit<AzkarState> {
     final n = DateTime.now();
     final h = n.hour % 12 == 0 ? 12 : n.hour % 12;
     final m = n.minute.toString().padLeft(2, '0');
-    return '${h.toString().padLeft(2, '0')}:$m ${n.hour < 12 ? 'AM' : 'PM'}';
+    return '${h.toString().padLeft(2, '0')}:$m ${n.hour < 12 ? 'ص' : 'م'}';
   }
 }

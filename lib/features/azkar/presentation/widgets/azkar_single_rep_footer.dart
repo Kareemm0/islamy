@@ -23,21 +23,21 @@ class AzkarSingleRepFooter extends StatelessWidget {
     return Row(
       children: [
         AzkarCircleAction(
-          tooltip: 'Copy dhikr',
+          tooltip: 'نسخ الذكر',
           onTap: () {
             Clipboard.setData(ClipboardData(text: item.arabic));
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Copied to clipboard')),
+              const SnackBar(content: Text('تم النسخ إلى الحافظة')),
             );
           },
           child: const AzkarIcon(AzkarAssets.actionCopy, width: 16.667),
         ),
         const SizedBox(width: 6),
         AzkarCircleAction(
-          tooltip: 'Share dhikr',
+          tooltip: 'مشاركة الذكر',
           onTap: () {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Dhikr ready to share')),
+              const SnackBar(content: Text('الذكر جاهز للمشاركة')),
             );
           },
           child: const AzkarIcon(
@@ -72,8 +72,8 @@ class AzkarSingleRepFooter extends StatelessWidget {
                         const SizedBox(width: 8),
                         Text(
                           done
-                              ? '${item.count} / ${item.repetitions} • Completed'
-                              : '${item.count} / ${item.repetitions} • Tap to recite',
+                              ? '${item.count} / ${item.repetitions} • تمت القراءة'
+                              : '${item.count} / ${item.repetitions} • اضغط للقراءة',
                           style: AppTheme.text(
                             size: 13,
                             weight: FontWeight.w700,

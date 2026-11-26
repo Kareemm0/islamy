@@ -11,7 +11,7 @@ class HadithEmptyState extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 32),
       child: Center(
         child: Text(
-          'No collections match your search',
+          'لا توجد مجموعات حديثية مطابقة لبحثك',
           style: AppTheme.text(
             size: 13,
             color: AppColors.onSurfaceVariant,

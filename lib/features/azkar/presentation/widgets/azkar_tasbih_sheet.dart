@@ -20,7 +20,7 @@ class AzkarTasbihSheet extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Electronic Tasbih • المسبحة',
+                'المسبحة الإلكترونية',
                 style: AppTheme.text(
                   size: 18,
                   weight: FontWeight.w700,
@@ -52,7 +52,7 @@ class AzkarTasbihSheet extends StatelessWidget {
               TextButton(
                 onPressed: cubit.resetTasbih,
                 child: Text(
-                  'Reset',
+                  'إعادة ضبط',
                   style: AppTheme.text(
                     size: 13,
                     weight: FontWeight.w600,

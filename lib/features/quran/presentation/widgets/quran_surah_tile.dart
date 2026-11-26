@@ -24,10 +24,8 @@ class QuranSurahTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final madani = surah.revelation == SurahRevelation.madani;
-    final revelation = madani ? 'Madani' : 'Makki';
-    final subtitle = surah.isFridaySunnah
-        ? '${surah.meaning} • ${surah.ayahCount} Ayahs • $revelation'
-        : '${surah.meaning} • ${surah.ayahCount} Ayahs';
+    final revelation = madani ? 'مدنية' : 'مكية';
+    final subtitle = '${surah.ayahCount} آية • $revelation';
     return Material(
       color: AppColors.surface,
       borderRadius: BorderRadius.circular(12),
@@ -77,12 +75,13 @@ class QuranSurahTile extends StatelessWidget {
                       crossAxisAlignment: WrapCrossAlignment.center,
                       children: [
                         Text(
-                          surah.name,
-                          style: AppTheme.text(
-                            size: 15,
+                          surah.arabicName,
+                          textDirection: TextDirection.rtl,
+                          style: AppTheme.arabic(
+                            size: 20,
                             weight: FontWeight.w700,
-                            height: 20,
-                            letterSpacing: 0.15,
+                            color: AppColors.primary,
+                            height: 26,
                           ),
                         ),
                         if (surah.isFridaySunnah)
@@ -105,18 +104,6 @@ class QuranSurahTile extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),
-              ),
-
-              Text(
-                surah.arabicName,
-                textDirection: TextDirection.rtl,
-                textAlign: TextAlign.right,
-                style: AppTheme.arabic(
-                  size: 24,
-                  weight: FontWeight.w700,
-                  color: AppColors.primary,
-                  height: 32,
                 ),
               ),
             ],

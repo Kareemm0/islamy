@@ -21,7 +21,7 @@ class HomePrayerCardFooter extends StatelessWidget {
         children: [
           Expanded(
             child: Text(
-              'Qibla direction: $qiblaDegrees°\nSE',
+              'اتجاه القبلة: $qiblaDegrees°\nجنوب شرق',
               style: AppTheme.text(
                 size: 11,
                 weight: FontWeight.w600,
@@ -38,7 +38,7 @@ class HomePrayerCardFooter extends StatelessWidget {
               children: [
                 Flexible(
                   child: Text(
-                    'Prayer Settings & Athan (إعدادات\nالأذان)',
+                    'إعدادات الصلاة والأذان',
                     textAlign: TextAlign.center,
                     style: AppTheme.text(
                       size: 11,

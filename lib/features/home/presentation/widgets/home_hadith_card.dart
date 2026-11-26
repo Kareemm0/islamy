@@ -49,7 +49,7 @@ class HomeHadithCard extends StatelessWidget {
               const SizedBox(width: 8),
               Flexible(
                 child: Text(
-                  'Hadith of the Day',
+                  'حديث اليوم',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: AppTheme.text(
@@ -61,23 +61,11 @@ class HomeHadithCard extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width: 8),
-              Text(
-                'حديث اليوم',
-                textDirection: TextDirection.rtl,
-                style: AppTheme.text(
-                  size: 11,
-                  weight: FontWeight.w600,
-                  color: AppColors.gold,
-                  height: 16,
-                  letterSpacing: 0.44,
-                ),
-              ),
               const Spacer(),
               HomeActionIcon(
                 tooltip: state.hadithBookmarked
-                    ? 'Remove bookmark'
-                    : 'Bookmark',
+                    ? 'إزالة العلامة'
+                    : 'حفظ الحديث',
                 onTap: onToggleBookmark,
                 child: Opacity(
                   opacity: state.hadithBookmarked ? 1 : 0.65,
@@ -90,10 +78,10 @@ class HomeHadithCard extends StatelessWidget {
               ),
               const SizedBox(width: 4),
               HomeActionIcon(
-                tooltip: 'Share hadith',
+                tooltip: 'مشاركة الحديث',
                 onTap: () {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Hadith ready to share')),
+                    const SnackBar(content: Text('الحديث جاهز للمشاركة')),
                   );
                 },
                 child: const HomeSvg('icon_share', width: 13.5, height: 15),
@@ -138,15 +126,17 @@ class HomeHadithCard extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 11),
-          Text(
-            h.translationLines.join(' '),
-            style: AppTheme.text(
-              size: 15,
-              color: AppColors.onSurface,
-              height: 24.38,
-            ).copyWith(fontStyle: FontStyle.italic),
-          ),
+          if (h.translationLines.isNotEmpty) ...[
+            const SizedBox(height: 11),
+            Text(
+              h.translationLines.join(' '),
+              style: AppTheme.text(
+                size: 15,
+                color: AppColors.onSurface,
+                height: 24.38,
+              ).copyWith(fontStyle: FontStyle.italic),
+            ),
+          ],
           const SizedBox(height: 11),
           Row(
             children: [

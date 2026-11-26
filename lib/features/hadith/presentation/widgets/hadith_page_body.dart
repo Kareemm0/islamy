@@ -38,7 +38,7 @@ class HadithPageBody extends StatelessWidget {
     context.pushNamed(
       Routes.hadithDetailsName,
       pathParameters: {'slug': book.slug},
-      queryParameters: {'name': book.name},
+      queryParameters: {'name': book.arabicName},
     );
   }
 
@@ -50,7 +50,7 @@ class HadithPageBody extends StatelessWidget {
       children: [
         const HadithHeader(),
         HadithSearchBar(
-          hint: 'Search ${state.totalBooks} canonical books, narrators, topics...',
+          hint: 'ابحث في ${state.totalBooks} كتب معتمدة أو رواة أو موضوعات...',
           onChanged: onQueryChanged,
           filterActive: state.sahihOnly,
           onFilterTap: onFilterTap,
@@ -70,7 +70,7 @@ class HadithPageBody extends StatelessWidget {
             ],
           HadithStatus.failure => [
               HadithErrorView(
-                message: state.errorMessage ?? 'Could not fetch collections.',
+                message: state.errorMessage ?? 'تعذر جلب المجموعات الحديثية.',
                 onRetry: onRetry,
               ),
             ],

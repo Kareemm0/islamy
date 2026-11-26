@@ -72,13 +72,13 @@ class HadithHeroBookCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              book.name,
-                              style: AppTheme.text(
-                                size: 20,
+                              book.arabicName,
+                              textDirection: TextDirection.rtl,
+                              style: AppTheme.arabic(
+                                size: 22,
                                 weight: FontWeight.w700,
                                 color: Colors.white,
                                 height: 28,
-                                letterSpacing: -0.5,
                               ),
                             ),
                             Text(
@@ -92,21 +92,6 @@ class HadithHeroBookCard extends StatelessWidget {
                               ),
                             ),
                           ],
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Opacity(
-                        opacity: 0.9,
-                        child: Text(
-                          book.arabicName,
-                          textAlign: TextAlign.right,
-                          textDirection: TextDirection.rtl,
-                          style: AppTheme.arabic(
-                            size: 20,
-                            weight: FontWeight.w700,
-                            color: AppColors.goldContainer,
-                            height: 28,
-                          ),
                         ),
                       ),
                     ],
@@ -189,7 +174,7 @@ class HadithHeroBookCard extends StatelessWidget {
                       Opacity(
                         opacity: 0.75,
                         child: Text(
-                          'Hadiths',
+                          'حديث',
                           style: AppTheme.text(
                             size: 12,
                             weight: FontWeight.w500,

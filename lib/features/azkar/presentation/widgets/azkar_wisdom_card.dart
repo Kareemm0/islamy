@@ -28,7 +28,7 @@ class AzkarWisdomCard extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                'Prophetic Sunnah',
+                'سنة نبوية',
                 style: AppTheme.text(
                   size: 13,
                   weight: FontWeight.w700,
@@ -41,12 +41,12 @@ class AzkarWisdomCard extends StatelessWidget {
           ),
           const SizedBox(height: 7),
           Text(
-            '“The comparison of the one who remembers his Lord and the one who does not is like that of the living and the dead.”',
+            '«مَثَلُ الَّذِي يَذْكُرُ رَبَّهُ وَالَّذِي لَا يَذْكُرُ رَبَّهُ، مَثَلُ الْحَيِّ وَالْمَيِّتِ»',
             style: AppTheme.text(size: 13, height: 21.13),
           ),
           const SizedBox(height: 8),
           Text(
-            'Sahih al-Bukhari 6407',
+            'صحيح البخاري 6407',
             style: AppTheme.text(
               size: 11,
               weight: FontWeight.w600,
