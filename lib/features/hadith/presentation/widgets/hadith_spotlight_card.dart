@@ -139,13 +139,7 @@ class HadithSpotlightCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 6.9),
-                Text(
-                  hadith.translation,
-                  style: AppTheme.text(size: 15, height: 24.38).copyWith(
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
+
                 const SizedBox(height: 8),
                 Padding(
                   padding: const EdgeInsets.only(top: 4),

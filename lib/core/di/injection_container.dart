@@ -10,6 +10,7 @@ import '../../features/azkar/data/repositories/azkar_repository_impl.dart';
 import '../../features/azkar/domain/repositories/azkar_repository.dart';
 import '../../features/azkar/domain/usecases/get_azkar_items_usecase.dart';
 import '../../features/azkar/presentation/cubit/azkar_cubit.dart';
+import '../../features/hadith/data/datasources/hadith_cache_datasource.dart';
 import '../../features/hadith/data/datasources/hadith_local_datasource.dart';
 import '../../features/hadith/data/datasources/hadith_remote_datasource.dart';
 import '../../features/hadith/data/datasources/hadith_remote_datasource_impl.dart';
@@ -99,6 +100,11 @@ Future<void> initDependencies() async {
   }
 
   // Hadith - Data sources
+  if (!sl.isRegistered<HadithCacheDatasource>()) {
+    sl.registerLazySingleton<HadithCacheDatasource>(
+      () => HadithCacheDatasource(Hive.box<String>(LocalDatabase.hadithBox)),
+    );
+  }
   if (!sl.isRegistered<HadithLocalDataSource>()) {
     sl.registerLazySingleton<HadithLocalDataSource>(
       () => const HadithLocalDataSource(),
@@ -116,6 +122,7 @@ Future<void> initDependencies() async {
       () => HadithRepositoryImpl(
         sl<HadithRemoteDataSource>(),
         sl<HadithLocalDataSource>(),
+        sl<HadithCacheDatasource>(),
       ),
     );
   }

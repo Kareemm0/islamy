@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:islamy/features/hadith/domain/usecases/get_hadith_books_usecase.dart';
 import 'package:islamy/features/hadith/domain/usecases/get_hadith_of_day_usecase.dart';
@@ -7,7 +9,8 @@ class HadithCubit extends Cubit<HadithState> {
   HadithCubit({
     required this._getBooks,
     required GetHadithOfDayUseCase getHadithOfDay,
-  }) : super(
+  })  : _getHadithOfDay = getHadithOfDay,
+        super(
           HadithState(
             hadithOfDay: getHadithOfDay(),
             allBooks: const [],
@@ -16,6 +19,22 @@ class HadithCubit extends Cubit<HadithState> {
         );
 
   final GetHadithBooksUseCase _getBooks;
+  final GetHadithOfDayUseCase _getHadithOfDay;
+  Timer? _timer;
+
+  /// Refreshes the spotlight hadith every 30 minutes.
+  void startHadithRotation() {
+    _timer?.cancel();
+    _timer = Timer.periodic(const Duration(minutes: 30), (_) {
+      if (!isClosed) emit(state.copyWith(hadithOfDay: _getHadithOfDay()));
+    });
+  }
+
+  @override
+  Future<void> close() {
+    _timer?.cancel();
+    return super.close();
+  }
 
   Future<void> loadBooks() async {
     emit(state.copyWith(status: HadithStatus.loading, clearError: true));

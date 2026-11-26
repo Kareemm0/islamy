@@ -12,15 +12,10 @@ import 'azkar_header.dart';
 import 'azkar_list_shimmer.dart';
 import 'azkar_progress_card.dart';
 import 'azkar_search_field.dart';
-import 'azkar_tasbih_button.dart';
 import 'azkar_wisdom_card.dart';
 
 class AzkarBody extends StatelessWidget {
-  const AzkarBody({
-    super.key,
-    required this.state,
-    required this.onOpenTasbih,
-  });
+  const AzkarBody({super.key, required this.state, required this.onOpenTasbih});
 
   final AzkarState state;
   final VoidCallback onOpenTasbih;
@@ -46,9 +41,7 @@ class AzkarBody extends StatelessWidget {
                     if (state.searching) ...[
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: AzkarSearchField(
-                          onChanged: cubit.setQuery,
-                        ),
+                        child: AzkarSearchField(onChanged: cubit.setQuery),
                       ),
                       const SizedBox(height: 12),
                     ],
@@ -72,47 +65,45 @@ class AzkarBody extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     switch (state.status) {
-                      AzkarStatus.initial || AzkarStatus.loading =>
-                        const AzkarListShimmer(),
+                      AzkarStatus.initial ||
+                      AzkarStatus.loading => const AzkarListShimmer(),
                       AzkarStatus.failure => AzkarErrorView(
-                          message: state.errorMessage ?? 'Could not load azkar.',
-                          onRetry: cubit.loadAzkar,
-                        ),
+                        message: state.errorMessage ?? 'Could not load azkar.',
+                        onRetry: cubit.loadAzkar,
+                      ),
                       AzkarStatus.success => switch (items.isEmpty) {
-                          true => Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 32,
+                        true => Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 32,
+                          ),
+                          child: Center(
+                            child: Text(
+                              'No adhkar match your search.',
+                              style: AppTheme.text(
+                                size: 14,
+                                color: AppColors.onSurfaceVariant,
                               ),
-                              child: Center(
-                                child: Text(
-                                  'No adhkar match your search.',
-                                  style: AppTheme.text(
-                                    size: 14,
-                                    color: AppColors.onSurfaceVariant,
-                                  ),
+                            ),
+                          ),
+                        ),
+                        false => Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Column(
+                            children: [
+                              for (var i = 0; i < items.length; i++) ...[
+                                if (i > 0) const SizedBox(height: 16),
+                                AzkarDhikrCard(
+                                  number: state.numberOf(items[i]),
+                                  item: items[i],
+                                  onTapCount: () => cubit.tap(items[i]),
+                                  onReread: () => cubit.reread(items[i]),
                                 ),
-                              ),
-                            ),
-                          false => Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                              ),
-                              child: Column(
-                                children: [
-                                  for (var i = 0; i < items.length; i++) ...[
-                                    if (i > 0) const SizedBox(height: 16),
-                                    AzkarDhikrCard(
-                                      number: state.numberOf(items[i]),
-                                      item: items[i],
-                                      onTapCount: () => cubit.tap(items[i]),
-                                      onReread: () => cubit.reread(items[i]),
-                                    ),
-                                  ],
-                                ],
-                              ),
-                            ),
-                        },
+                              ],
+                            ],
+                          ),
+                        ),
+                      },
                     },
                     const SizedBox(height: 20),
                     const Padding(
@@ -124,11 +115,6 @@ class AzkarBody extends StatelessWidget {
               ),
             ),
           ],
-        ),
-        Positioned(
-          right: 16,
-          bottom: 16,
-          child: AzkarTasbihButton(onTap: onOpenTasbih),
         ),
       ],
     );

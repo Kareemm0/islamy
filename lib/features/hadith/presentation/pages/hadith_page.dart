@@ -48,7 +48,7 @@ class HadithPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<HadithCubit>(
-      create: (_) => sl<HadithCubit>()..loadBooks(),
+      create: (_) => sl<HadithCubit>()..loadBooks()..startHadithRotation(),
       child: ColoredBox(
         color: AppColors.background,
         child: SafeArea(

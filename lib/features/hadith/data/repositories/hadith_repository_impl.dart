@@ -6,14 +6,16 @@ import '../../domain/entities/hadith_book.dart';
 import '../../domain/entities/hadith_collection_page_entity.dart';
 import '../../domain/entities/hadith_of_day.dart';
 import '../../domain/repositories/hadith_repository.dart';
+import '../datasources/hadith_cache_datasource.dart';
 import '../datasources/hadith_local_datasource.dart';
 import '../datasources/hadith_remote_datasource.dart';
 
 class HadithRepositoryImpl implements HadithRepository {
-  const HadithRepositoryImpl(this._remote, this._local);
+  const HadithRepositoryImpl(this._remote, this._local, this._cache);
 
   final HadithRemoteDataSource _remote;
   final HadithLocalDataSource _local;
+  final HadithCacheDatasource _cache;
 
   @override
   HadithOfDay getHadithOfDay() => _local.getHadithOfDay();
@@ -21,7 +23,11 @@ class HadithRepositoryImpl implements HadithRepository {
   @override
   Future<Either<Failure, List<HadithBook>>> getBooks() async {
     try {
-      final models = await _remote.getBooks();
+      var models = _cache.getBooks();
+      if (models == null || models.isEmpty) {
+        models = await _remote.getBooks();
+        await _cache.saveBooks(models);
+      }
       final sorted = [...models]..sort((a, b) {
         if (a.slug == 'bukhari') return -1;
         if (b.slug == 'bukhari') return 1;
@@ -45,11 +51,15 @@ class HadithRepositoryImpl implements HadithRepository {
     int limit = 20,
   }) async {
     try {
-      final model = await _remote.getCollectionPage(
-        slug: slug,
-        page: page,
-        limit: limit,
-      );
+      var model = _cache.getCollectionPage(slug, page, limit);
+      if (model == null || model.items.isEmpty) {
+        model = await _remote.getCollectionPage(
+          slug: slug,
+          page: page,
+          limit: limit,
+        );
+        await _cache.saveCollectionPage(slug, page, limit, model);
+      }
       return Right(model.toEntity());
     } on ServerException catch (e) {
       return Left(ServerFailure(e.message));

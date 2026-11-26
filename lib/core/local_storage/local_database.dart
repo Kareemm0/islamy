@@ -8,9 +8,12 @@ class LocalDatabase {
 
   static const azkarBox = 'azkar_box';
 
+  static const hadithBox = 'hadith_box';
+
   static Future<void> init() async {
     await Hive.initFlutter();
     await Hive.openBox<String>(quranBox);
     await Hive.openBox<String>(azkarBox);
+    await Hive.openBox<String>(hadithBox);
   }
 }
