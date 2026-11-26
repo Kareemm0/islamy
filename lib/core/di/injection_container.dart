@@ -3,6 +3,7 @@ import 'package:hive_ce/hive.dart';
 
 import '../../features/quran/presentation/cubit/bookmark_cubit.dart';
 
+import '../../features/azkar/data/datasources/azkar_cache_datasource.dart';
 import '../../features/azkar/data/datasources/azkar_remote_datasource.dart';
 import '../../features/azkar/data/datasources/azkar_remote_datasource_impl.dart';
 import '../../features/azkar/data/repositories/azkar_repository_impl.dart';
@@ -152,6 +153,11 @@ Future<void> initDependencies() async {
   }
 
   // Azkar - Data source
+  if (!sl.isRegistered<AzkarCacheDatasource>()) {
+    sl.registerLazySingleton<AzkarCacheDatasource>(
+      () => AzkarCacheDatasource(Hive.box<String>(LocalDatabase.azkarBox)),
+    );
+  }
   if (!sl.isRegistered<AzkarRemoteDataSource>()) {
     sl.registerLazySingleton<AzkarRemoteDataSource>(
       () => AzkarRemoteDataSourceImpl(sl<ApiClient>()),
@@ -161,7 +167,10 @@ Future<void> initDependencies() async {
   // Azkar - Repository
   if (!sl.isRegistered<AzkarRepository>()) {
     sl.registerLazySingleton<AzkarRepository>(
-      () => AzkarRepositoryImpl(sl<AzkarRemoteDataSource>()),
+      () => AzkarRepositoryImpl(
+        sl<AzkarRemoteDataSource>(),
+        sl<AzkarCacheDatasource>(),
+      ),
     );
   }
 

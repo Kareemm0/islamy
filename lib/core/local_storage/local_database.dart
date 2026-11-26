@@ -6,8 +6,11 @@ class LocalDatabase {
 
   static const quranBox = 'quran_box';
 
+  static const azkarBox = 'azkar_box';
+
   static Future<void> init() async {
     await Hive.initFlutter();
     await Hive.openBox<String>(quranBox);
+    await Hive.openBox<String>(azkarBox);
   }
 }
