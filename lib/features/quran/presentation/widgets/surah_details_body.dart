@@ -106,6 +106,7 @@ class SurahDetailsBody extends StatelessWidget {
                           pageNumber: pageAyahs.first.page,
                           juzNumber: pageAyahs.first.juz,
                           ayahs: pageAyahs,
+                          surah: details.surah,
                         );
                       },
                     ),

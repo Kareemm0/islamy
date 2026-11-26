@@ -107,23 +107,7 @@ class QuranSurahTile extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(width: 10),
-              InkResponse(
-                onTap: onBookmark,
-                radius: 18,
-                child: SizedBox(
-                  width: 32,
-                  height: 32,
-                  child: Center(
-                    child: SvgPicture.asset(
-                      bookmarked
-                          ? QuranAssets.bookmarkFilled
-                          : QuranAssets.bookmarkOutline,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 4),
+
               Text(
                 surah.arabicName,
                 textDirection: TextDirection.rtl,

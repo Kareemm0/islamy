@@ -9,16 +9,14 @@ enum QuranStatus { initial, loading, success, failure }
 class QuranState {
   const QuranState({
     required this.allSurahs,
-    required this.lastRead,
-    required this.bookmarked,
+
     this.status = QuranStatus.initial,
     this.query = '',
     this.errorMessage,
   });
 
   final List<QuranSurah> allSurahs;
-  final QuranLastRead lastRead;
-  final Set<int> bookmarked;
+
   final QuranStatus status;
   final String query;
   final String? errorMessage;
@@ -37,8 +35,6 @@ class QuranState {
         .toList(growable: false);
   }
 
-  bool isBookmarked(int number) => bookmarked.contains(number);
-
   QuranState copyWith({
     List<QuranSurah>? allSurahs,
     QuranLastRead? lastRead,
@@ -50,8 +46,7 @@ class QuranState {
   }) {
     return QuranState(
       allSurahs: allSurahs ?? this.allSurahs,
-      lastRead: lastRead ?? this.lastRead,
-      bookmarked: bookmarked ?? this.bookmarked,
+
       status: status ?? this.status,
       query: query ?? this.query,
       errorMessage: clearError ? null : (errorMessage ?? this.errorMessage),
@@ -63,20 +58,12 @@ class QuranState {
     if (identical(this, other)) return true;
     return other is QuranState &&
         listEquals(other.allSurahs, allSurahs) &&
-        other.lastRead == lastRead &&
-        setEquals(other.bookmarked, bookmarked) &&
         other.status == status &&
         other.query == query &&
         other.errorMessage == errorMessage;
   }
 
   @override
-  int get hashCode => Object.hash(
-        Object.hashAll(allSurahs),
-        lastRead,
-        Object.hashAllUnordered(bookmarked),
-        status,
-        query,
-        errorMessage,
-      );
+  int get hashCode =>
+      Object.hash(Object.hashAll(allSurahs), status, query, errorMessage);
 }

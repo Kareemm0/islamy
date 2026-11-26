@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:islamy/core/di/injection_container.dart';
 
+import '../cubit/bookmark_cubit.dart';
 import '../cubit/surah_details_cubit.dart';
 import '../cubit/surah_details_state.dart';
 import '../widgets/surah_details_body.dart';
@@ -14,8 +15,13 @@ class SurahDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<SurahDetailsCubit>(
-      create: (_) => sl<SurahDetailsCubit>()..loadSurah(surahId),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<SurahDetailsCubit>(
+          create: (_) => sl<SurahDetailsCubit>()..loadSurah(surahId),
+        ),
+        BlocProvider<BookmarkCubit>.value(value: sl<BookmarkCubit>()),
+      ],
       child: BlocBuilder<SurahDetailsCubit, SurahDetailsState>(
         builder: (context, state) =>
             SurahDetailsBody(surahId: surahId, state: state),

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:islamy/core/theme/app_theme.dart';
 
 import '../../domain/entities/quran_ayah_entity.dart';
+import '../../domain/entities/quran_surah_entity.dart';
+import '../cubit/bookmark_cubit.dart';
 import 'surah_ayah_end_marker.dart';
 
 /// Renders a Mushaf page of continuous, justified RTL ayahs with inline verse-end markers.
@@ -12,7 +15,10 @@ class SurahMushafPageCard extends StatelessWidget {
     required this.pageNumber,
     required this.juzNumber,
     required this.ayahs,
+    required this.surah,
   });
+
+  final QuranSurah surah;
 
   final int surahNumber;
   final int pageNumber;
@@ -94,13 +100,49 @@ class SurahMushafPageCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Juz $juzNumber',
-                style: AppTheme.text(
-                  size: 11,
-                  weight: FontWeight.w600,
-                  color: AppColors.gold,
-                ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'الجزء $juzNumber',
+                    style: AppTheme.text(
+                      size: 11,
+                      weight: FontWeight.w600,
+                      color: AppColors.gold,
+                    ),
+                  ),
+                  const SizedBox(width: 6),
+                  BlocBuilder<BookmarkCubit, QuranBookmark?>(
+                    builder: (context, bookmark) {
+                      final saved =
+                          bookmark?.isSame(surahNumber, pageNumber) ?? false;
+                      return InkWell(
+                        borderRadius: BorderRadius.circular(20),
+                        onTap: () => context.read<BookmarkCubit>().toggle(
+                              QuranBookmark(
+                                surahNumber: surahNumber,
+                                surahName: surah.name,
+                                arabicName: surah.arabicName,
+                                page: pageNumber,
+                                juz: juzNumber,
+                                firstAyah: ayahs.first.numberInSurah,
+                                totalAyahs: surah.ayahCount,
+                              ),
+                            ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(4),
+                          child: Icon(
+                            saved
+                                ? Icons.bookmark_rounded
+                                : Icons.bookmark_border_rounded,
+                            size: 22,
+                            color: AppColors.gold,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
               Container(
                 padding: const EdgeInsets.symmetric(
@@ -112,7 +154,7 @@ class SurahMushafPageCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(9999),
                 ),
                 child: Text(
-                  'Page $pageNumber',
+                  'صفحة $pageNumber',
                   style: AppTheme.text(
                     size: 11,
                     weight: FontWeight.w700,

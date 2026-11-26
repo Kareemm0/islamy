@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:islamy/core/router/routes.dart';
 
+import '../cubit/bookmark_cubit.dart';
 import '../cubit/quran_cubit.dart';
 import '../cubit/quran_state.dart';
 import 'quran_empty_state.dart';
@@ -31,42 +32,44 @@ class QuranBody extends StatelessWidget {
             delegate: SliverChildListDelegate([
               QuranSearchBar(onChanged: cubit.setQuery),
               const SizedBox(height: 16),
-              QuranLastReadCard(
-                lastRead: state.lastRead,
-                onContinue: () => context.pushNamed(
-                  Routes.surahDetailsName,
-                  pathParameters: const {'id': '18'},
+              BlocBuilder<BookmarkCubit, QuranBookmark?>(
+                builder: (context, bookmark) => QuranLastReadCard(
+                  bookmark: bookmark,
+                  onContinue: bookmark == null
+                      ? null
+                      : () => context.pushNamed(
+                            Routes.surahDetailsName,
+                            pathParameters: {'id': '${bookmark.surahNumber}'},
+                          ),
                 ),
               ),
               const SizedBox(height: 16),
               ...switch (state.status) {
-                QuranStatus.initial || QuranStatus.loading => const [
-                    QuranSurahListShimmer(),
-                  ],
+                QuranStatus.initial ||
+                QuranStatus.loading => const [QuranSurahListShimmer()],
                 QuranStatus.failure => [
-                    QuranErrorView(
-                      message: state.errorMessage ?? 'Could not fetch surahs.',
-                      onRetry: cubit.loadSurahs,
-                    ),
-                  ],
+                  QuranErrorView(
+                    message: state.errorMessage ?? 'Could not fetch surahs.',
+                    onRetry: cubit.loadSurahs,
+                  ),
+                ],
                 QuranStatus.success => switch (surahs.isEmpty) {
-                    true => const [QuranEmptyState()],
-                    false => [
-                        for (var i = 0; i < surahs.length; i++) ...[
-                          if (i > 0) const SizedBox(height: 10),
-                          QuranSurahTile(
-                            surah: surahs[i],
-                            bookmarked: state.isBookmarked(surahs[i].number),
-                            onBookmark: () =>
-                                cubit.toggleBookmark(surahs[i].number),
-                            onTap: () => context.pushNamed(
-                              Routes.surahDetailsName,
-                              pathParameters: {'id': '${surahs[i].number}'},
-                            ),
-                          ),
-                        ],
-                      ],
-                  },
+                  true => const [QuranEmptyState()],
+                  false => [
+                    for (var i = 0; i < surahs.length; i++) ...[
+                      if (i > 0) const SizedBox(height: 10),
+                      QuranSurahTile(
+                        surah: surahs[i],
+                        bookmarked: true,
+                        onBookmark: () {},
+                        onTap: () => context.pushNamed(
+                          Routes.surahDetailsName,
+                          pathParameters: {'id': '${surahs[i].number}'},
+                        ),
+                      ),
+                    ],
+                  ],
+                },
               },
             ]),
           ),

@@ -1,23 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../domain/usecases/get_quran_bookmarks_usecase.dart';
-import '../../domain/usecases/get_quran_last_read_usecase.dart';
 import '../../domain/usecases/get_surahs_usecase.dart';
 import 'quran_state.dart';
 
 class QuranCubit extends Cubit<QuranState> {
-  QuranCubit({
-    required this._getSurahs,
-    required GetQuranLastReadUseCase getLastRead,
-    required GetQuranBookmarksUseCase getBookmarks,
-  }) : super(
-          QuranState(
-            allSurahs: const [],
-            lastRead: getLastRead(),
-            bookmarked: Set<int>.unmodifiable(getBookmarks()),
-            status: QuranStatus.loading,
-          ),
-        );
+  QuranCubit({required this._getSurahs})
+    : super(QuranState(allSurahs: const [], status: QuranStatus.loading));
 
   final GetSurahsUseCase _getSurahs;
 
@@ -44,13 +32,5 @@ class QuranCubit extends Cubit<QuranState> {
 
   void setQuery(String value) {
     emit(state.copyWith(query: value));
-  }
-
-  void toggleBookmark(int number) {
-    final next = Set<int>.of(state.bookmarked);
-    if (!next.remove(number)) {
-      next.add(number);
-    }
-    emit(state.copyWith(bookmarked: Set<int>.unmodifiable(next)));
   }
 }

@@ -1,4 +1,7 @@
 import 'package:get_it/get_it.dart';
+import 'package:hive_ce/hive.dart';
+
+import '../../features/quran/presentation/cubit/bookmark_cubit.dart';
 
 import '../../features/azkar/data/datasources/azkar_remote_datasource.dart';
 import '../../features/azkar/data/datasources/azkar_remote_datasource_impl.dart';
@@ -16,17 +19,16 @@ import '../../features/hadith/domain/usecases/get_hadith_collection_page_usecase
 import '../../features/hadith/domain/usecases/get_hadith_of_day_usecase.dart';
 import '../../features/hadith/presentation/cubit/hadith_cubit.dart';
 import '../../features/hadith/presentation/cubit/hadith_details_cubit.dart';
-import '../../features/quran/data/datasources/quran_local_datasource.dart';
+import '../../features/quran/data/datasources/quran_cache_datasource.dart';
 import '../../features/quran/data/datasources/quran_remote_datasource.dart';
 import '../../features/quran/data/datasources/quran_remote_datasource_impl.dart';
 import '../../features/quran/data/repositories/quran_repository_impl.dart';
 import '../../features/quran/domain/repositories/quran_repository.dart';
-import '../../features/quran/domain/usecases/get_quran_bookmarks_usecase.dart';
-import '../../features/quran/domain/usecases/get_quran_last_read_usecase.dart';
 import '../../features/quran/domain/usecases/get_surah_details_usecase.dart';
 import '../../features/quran/domain/usecases/get_surahs_usecase.dart';
 import '../../features/quran/presentation/cubit/quran_cubit.dart';
 import '../../features/quran/presentation/cubit/surah_details_cubit.dart';
+import '../local_storage/local_database.dart';
 import '../network/api_client.dart';
 
 final sl = GetIt.instance;
@@ -38,12 +40,22 @@ Future<void> initDependencies() async {
     sl.registerLazySingleton<ApiClient>(ApiClient.new);
   }
 
-  // Quran - Data sources
-  if (!sl.isRegistered<QuranLocalDatasource>()) {
-    sl.registerLazySingleton<QuranLocalDatasource>(
-      () => const QuranLocalDatasource(),
+  // Local database
+  await LocalDatabase.init();
+
+  if (!sl.isRegistered<BookmarkCubit>()) {
+    sl.registerLazySingleton<BookmarkCubit>(
+      () => BookmarkCubit(Hive.box<String>(LocalDatabase.quranBox)),
     );
   }
+
+  // Quran - Data sources
+  if (!sl.isRegistered<QuranCacheDatasource>()) {
+    sl.registerLazySingleton<QuranCacheDatasource>(
+      () => QuranCacheDatasource(Hive.box<String>(LocalDatabase.quranBox)),
+    );
+  }
+
   if (!sl.isRegistered<QuranRemoteDataSource>()) {
     sl.registerLazySingleton<QuranRemoteDataSource>(
       () => QuranRemoteDataSourceImpl(sl<ApiClient>()),
@@ -55,7 +67,8 @@ Future<void> initDependencies() async {
     sl.registerLazySingleton<QuranRepository>(
       () => QuranRepositoryImpl(
         sl<QuranRemoteDataSource>(),
-        sl<QuranLocalDatasource>(),
+
+        sl<QuranCacheDatasource>(),
       ),
     );
   }
@@ -71,25 +84,11 @@ Future<void> initDependencies() async {
       () => GetSurahDetailsUseCase(sl<QuranRepository>()),
     );
   }
-  if (!sl.isRegistered<GetQuranLastReadUseCase>()) {
-    sl.registerLazySingleton<GetQuranLastReadUseCase>(
-      () => GetQuranLastReadUseCase(sl<QuranRepository>()),
-    );
-  }
-  if (!sl.isRegistered<GetQuranBookmarksUseCase>()) {
-    sl.registerLazySingleton<GetQuranBookmarksUseCase>(
-      () => GetQuranBookmarksUseCase(sl<QuranRepository>()),
-    );
-  }
 
   // Quran - Cubits
   if (!sl.isRegistered<QuranCubit>()) {
     sl.registerFactory<QuranCubit>(
-      () => QuranCubit(
-        getSurahs: sl<GetSurahsUseCase>(),
-        getLastRead: sl<GetQuranLastReadUseCase>(),
-        getBookmarks: sl<GetQuranBookmarksUseCase>(),
-      ),
+      () => QuranCubit(getSurahs: sl<GetSurahsUseCase>()),
     );
   }
   if (!sl.isRegistered<SurahDetailsCubit>()) {

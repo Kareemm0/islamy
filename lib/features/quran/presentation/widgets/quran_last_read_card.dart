@@ -2,17 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:islamy/core/theme/app_theme.dart';
 
-import '../../domain/entities/quran_last_read_entity.dart';
+import '../cubit/bookmark_cubit.dart';
 import 'quran_style.dart';
 
 class QuranLastReadCard extends StatelessWidget {
-  const QuranLastReadCard({
-    super.key,
-    required this.lastRead,
-    this.onContinue,
-  });
+  const QuranLastReadCard({super.key, this.bookmark, this.onContinue});
 
-  final QuranLastRead lastRead;
+  final QuranBookmark? bookmark;
+
   final VoidCallback? onContinue;
 
   @override
@@ -68,7 +65,7 @@ class QuranLastReadCard extends StatelessWidget {
                           const SizedBox(width: 8),
                           Flexible(
                             child: Text(
-                              'LAST READ BOOKMARK',
+                              'آخر موضع محفوظ',
                               overflow: TextOverflow.ellipsis,
                               style: AppTheme.text(
                                 size: 11,
@@ -93,7 +90,7 @@ class QuranLastReadCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(9999),
                       ),
                       child: Text(
-                        lastRead.juzLabel,
+                        bookmark == null ? '' : 'صفحة ${bookmark!.page}',
                         style: AppTheme.text(
                           size: 11,
                           weight: FontWeight.w600,
@@ -114,7 +111,7 @@ class QuranLastReadCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            lastRead.surahName,
+                            bookmark?.arabicName ?? 'لا توجد علامة محفوظة',
                             style: AppTheme.text(
                               size: 20,
                               weight: FontWeight.w700,
@@ -124,7 +121,9 @@ class QuranLastReadCard extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            lastRead.ayahLabel,
+                            bookmark == null
+                                ? 'اضغط على أيقونة العلامة داخل السورة'
+                                : 'الجزء ${bookmark!.juz} • الآية ${bookmark!.firstAyah}',
                             style: AppTheme.text(
                               size: 13,
                               color: QuranPalette.mintText,
@@ -136,7 +135,7 @@ class QuranLastReadCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      lastRead.arabicName,
+                      bookmark == null ? '' : 'سورة',
                       textDirection: TextDirection.rtl,
                       style: AppTheme.arabic(
                         size: 26,
@@ -157,8 +156,11 @@ class QuranLastReadCard extends StatelessWidget {
                         color: Colors.white.withValues(alpha: 0.15),
                       ),
                       FractionallySizedBox(
-                        widthFactor: lastRead.progress.clamp(0.0, 1.0),
-                        child: Container(height: 6, color: AppColors.goldAccent),
+                        widthFactor: bookmark?.progress ?? 0.0,
+                        child: Container(
+                          height: 6,
+                          color: AppColors.goldAccent,
+                        ),
                       ),
                     ],
                   ),
@@ -169,7 +171,9 @@ class QuranLastReadCard extends StatelessWidget {
                   children: [
                     Flexible(
                       child: Text(
-                        'Page ${lastRead.page} • Verse ${lastRead.ayah}/${lastRead.totalAyahs}',
+                        bookmark == null
+                            ? ''
+                            : 'الآية ${bookmark!.firstAyah} من ${bookmark!.totalAyahs}',
                         overflow: TextOverflow.ellipsis,
                         style: AppTheme.text(
                           size: 11,
@@ -196,7 +200,7 @@ class QuranLastReadCard extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
-                                'Continue',
+                                'متابعة',
                                 style: AppTheme.text(
                                   size: 13,
                                   weight: FontWeight.w600,
