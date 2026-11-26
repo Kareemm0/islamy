@@ -5,6 +5,7 @@ import '../../features/azkar/presentation/pages/azkar_page.dart';
 import '../../features/hadith/presentation/pages/hadith_details_page.dart';
 import '../../features/hadith/presentation/pages/hadith_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
+import '../../features/home/presentation/pages/qibla_page.dart';
 import '../../features/quran/presentation/pages/quran_page.dart';
 import '../../features/quran/presentation/pages/surah_details_page.dart';
 import '../../features/settings/presentation/pages/settings_page.dart';
@@ -26,6 +27,18 @@ abstract final class AppRouter {
                 path: Routes.home,
                 name: Routes.homeName,
                 builder: (context, state) => const HomePage(),
+                routes: [
+                  GoRoute(
+                    path: Routes.qibla,
+                    name: Routes.qiblaName,
+                    builder: (context, state) {
+                      final deg = int.tryParse(
+                        state.uri.queryParameters['deg'] ?? '',
+                      );
+                      return QiblaPage(initialQiblaDegrees: deg ?? 136);
+                    },
+                  ),
+                ],
               ),
             ],
           ),

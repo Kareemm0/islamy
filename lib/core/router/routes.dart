@@ -3,6 +3,8 @@ abstract final class Routes {
   // Home
   static const home = '/home';
   static const homeName = 'home';
+  static const qibla = 'qibla';
+  static const qiblaName = 'qibla';
 
   // Quran
   static const quran = '/quran';

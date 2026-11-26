@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:islamy/core/router/routes.dart';
 import 'package:islamy/core/theme/app_theme.dart';
 
 import '../cubit/home_state.dart';
@@ -78,6 +80,10 @@ class HomeShortcuts extends StatelessWidget {
       footer: const HomeShortcutFooterText(
         text: 'مُعايرة',
         color: Color(0xFF00422E),
+      ),
+      onTap: () => context.pushNamed(
+        Routes.qiblaName,
+        queryParameters: {'deg': '${state.qiblaDegrees}'},
       ),
     );
     final hadith = HomeShortcutCard(
