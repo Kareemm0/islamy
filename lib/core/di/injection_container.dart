@@ -30,8 +30,10 @@ import '../../features/quran/domain/usecases/get_surah_details_usecase.dart';
 import '../../features/quran/domain/usecases/get_surahs_usecase.dart';
 import '../../features/quran/presentation/cubit/quran_cubit.dart';
 import '../../features/quran/presentation/cubit/surah_details_cubit.dart';
+import '../../features/home/data/datasources/prayer_times_cache_datasource.dart';
 import '../local_storage/local_database.dart';
 import '../network/api_client.dart';
+import '../notifications/azan_audio_service.dart';
 import '../notifications/salawat_reminder_service.dart';
 
 final sl = GetIt.instance;
@@ -52,6 +54,17 @@ Future<void> initDependencies() async {
     );
     await salawatService.init();
     sl.registerSingleton<SalawatReminderService>(salawatService);
+  }
+
+  if (!sl.isRegistered<AzanAudioService>()) {
+    final azanService = AzanAudioService(
+      settingsBox: Hive.box<String>(LocalDatabase.settingsBox),
+      prayerCache: PrayerTimesCacheDatasource(
+        Hive.box<String>(LocalDatabase.homeBox),
+      ),
+    );
+    await azanService.init();
+    sl.registerSingleton<AzanAudioService>(azanService);
   }
 
   if (!sl.isRegistered<BookmarkCubit>()) {
