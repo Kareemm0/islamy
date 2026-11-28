@@ -142,7 +142,7 @@ class _SettingsPageState extends State<SettingsPage> {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              'تنبيه صوتي «صلِّ على محمد» كل 5 إلى 30 دقيقة حتى بعد إغلاق التطبيق',
+                              'تنبيه صوتي «صلِّ على محمد» كل 5 إلى 30 دقيقة',
                               style: AppTheme.text(
                                 size: 12,
                                 color: AppColors.onSurfaceVariant,

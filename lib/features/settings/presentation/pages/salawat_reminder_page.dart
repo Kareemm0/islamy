@@ -5,7 +5,7 @@ import 'package:islamy/core/notifications/salawat_reminder_service.dart';
 import 'package:islamy/core/theme/app_theme.dart';
 
 /// Screen where the user chooses the recurring interval (5..30 minutes)
-/// for the "صلِّ على محمد" voice notification reminder.
+/// for the "صلِّ على محمد" voice reminder.
 class SalawatReminderPage extends StatefulWidget {
   const SalawatReminderPage({super.key});
 
@@ -38,7 +38,7 @@ class _SalawatReminderPageState extends State<SalawatReminderPage> {
       ..showSnackBar(
         SnackBar(
           content: Text(
-            'تم تفعيل تذكير «صلِّ على محمد» كل $minutes دقائق حتى عند إغلاق التطبيق',
+            'تم تفعيل تذكير «صلِّ على محمد» كل $minutes دقائق',
           ),
         ),
       );
@@ -65,7 +65,7 @@ class _SalawatReminderPageState extends State<SalawatReminderPage> {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
-        const SnackBar(content: Text('تم إرسال التنبيه الصوتي للتجربة')),
+        const SnackBar(content: Text('تم تشغيل الصوت للتجربة')),
       );
   }
 
@@ -220,7 +220,7 @@ class _SalawatReminderPageState extends State<SalawatReminderPage> {
               ),
               const SizedBox(height: 4),
               Text(
-                'سيعمل الصوت تلقائيًا في الخلفية وحتى بعد إغلاق التطبيق بدون عنوان أو نص إضافي.',
+                'سيعمل صوت «صلِّ على محمد» تلقائيًا في كل فترة تختارها بدون إشعارات.',
                 style: AppTheme.text(
                   size: 12,
                   color: AppColors.onSurfaceVariant,
